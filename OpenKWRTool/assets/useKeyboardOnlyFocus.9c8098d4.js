@@ -1,0 +1,1 @@
+import{r as o}from"./entry.764eeb19.js";function a(){const s=o(!1);let e=!1;return{hasKeyboardFocus:s,keyboardFocusListeners:{mousedown:()=>{e=!0},focus:()=>{e||(s.value=!0),e=!1},blur:()=>{s.value=!1,e=!1}}}}export{a as u};
