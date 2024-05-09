@@ -17,8 +17,6 @@ export async function getStaticPaths() {
 		props: post,
 	}));
 }
-
-type Props = CollectionEntry<'projects'>;
 const post = Astro.props;
 const { Content } = await (post as any).render();
 
