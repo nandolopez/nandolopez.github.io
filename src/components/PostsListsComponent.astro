@@ -1,7 +1,6 @@
 ---
-import Layout from "../layouts/default.astro";
+import Layout from "@/layouts/default.astro";
 import FormattedDate from "./FormattedDate.astro";
-import {icons} from '../db/icons'
 
 interface Props {
   info: any;
@@ -9,7 +8,6 @@ interface Props {
   collection?: string;
 }
 const { info, page } = Astro.props;
-
 ---
 
 <Layout
@@ -38,7 +36,12 @@ const { info, page } = Astro.props;
                   class="absolute w-full h-full"
                 >
                   <img
-                    src={post.data.thumbnail ? post.data.thumbnail : icons[(post.data.topic as string)]}
+                    src={
+                      post.data.thumbnail
+                        ? post.data.thumbnail
+                        : `/svg_icons/${post.data.topic}.svg`
+                    }
+                    .
                     alt={post.data.title}
                     class="w-full h-full"
                   />
