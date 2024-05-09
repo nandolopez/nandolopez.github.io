@@ -7,7 +7,7 @@ import tailwind from "@astrojs/tailwind";
 // https://astro.build/config
 export default defineConfig({
   site: 'https://nandolopez.github.io',
-  base:"/dist/",
+  base:"/nandolopez/nandolopez.github.io",
   build: {
     format: "file"
   },
