@@ -8,9 +8,10 @@ import { social_medias } from "@/db/Social";
 import { DB_Menu } from "@/db/DB_Menu";
 import SearchComponent from "@/components/react/SearchComponent";
 import ButtonDarkMode from "@/components/react/ButtonDarkMode";
-import { Image } from "astro:assets";
 import MenuIcon from "@/assets/svg/Menu.svg";
 import CloseIcon from "@/assets/svg/Close.svg";
+import { Image } from "astro:assets";
+import NavbarLinkComponent from "@/components/NavbarLinkComponent.astro";
 /**
  * Load parameters for SEO Stuff
  */
@@ -19,10 +20,6 @@ type Props = CollectionEntry<"blog">["data"];
 const { title, description, thumbnail, index } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const isNavigatorInSpanish = Astro.url.pathname.includes("/es");
-const blog_collection = isNavigatorInSpanish ? "es" : "en";
-const Links = DB_Menu[blog_collection];
-
 ---
 
 <html lang="en">
@@ -122,79 +119,57 @@ const Links = DB_Menu[blog_collection];
     </script>
   </head>
 
-  <body
-    class="bg-sky-100 dark:bg-slate-900 dark:text-white m-0 px-4 md:p-0 max-w-screen"
-  >
+  <body class="bg-sky-100 dark:bg-slate-900 dark:text-white m-0 max-w-screen">
+    <!--Header navbar -->
+    <header class="bg-nando flex flex-wrap lg:flex-nowrap gap-4 justify-between p-4 w-full">
+      <a href="/">
+        <img
+          src="/svg_social/Logo.svg"
+          alt="Nando López"
+          class="w-12 rounded-lg"
+        />
+      </a>
+      <div class="flex gap-4 pl-4">
+        <SearchComponent client:load />
+        <ButtonDarkMode client:load />
+      </div>
+      <!-- Menu Button for Mobile -->
+      <input type="checkbox" class="peer hidden" id="navbar-open" />
+      <label for="navbar-open" class="lg:hidden">
+        <span class="sr-only">Open main menu</span>
+        <Image src={MenuIcon} alt="Open menu" class="w-12" />
+      </label>
+      <!-- Menu Button for Mobile -->
+      <!-- Menu Items -->
+      <div
+        class="hidden peer-checked:flex lg:flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-end lg:relative w-full z-4"
+        id="menu"
+      >
+        <nav class="lg:flex gap-8">
+          {
+            DB_Menu.map((link) => {
+              return (
+                <NavbarLinkComponent 
+                  class="flex items-center gap-2 md:p-0 px-4 text-lg"
+                  href={link.href}
+                >
+                  <img src={link.src} alt={link.alt} class="md:w-6 w-4" />{" "}
+                  {link.link}
+                </NavbarLinkComponent>
+              );
+            })
+          }
+         
+        </nav>
+      </div>
+    </header>
+    <!-- Menu Items -->
+
+    <!--Header navbar -->
+
     <div
       class="box-content flex flex-col justify-between min-h-screen mx-auto w-full"
     >
-      <!--Header class="h-10" /-->
-      <header class=">flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-gradient-to-r from-cyan-500 to-indigo-900 text-sm py-4">
-        <nav class="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between gap-4" aria-label="Global">
-          <div class="flex items-center justify-between gap-4">
-            <a href="/" class="w-auto">
-              <img
-                src="/svg_social/Logo.svg"
-                alt="Nando López"
-                class="w-12 rounded-lg"
-              />
-            </a>
-            <!--SearchComponent client:load /-->
-            <div class="sm:hidden">
-              <button type="button" class="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-transparent dark:border-neutral-700 dark:text-white dark:hover:bg-white/10" data-hs-collapse="#navbar-collapse-with-animation" aria-controls="navbar-collapse-with-animation" aria-label="Toggle navigation">
-                <img src={MenuIcon.src} alt="open menu" class="hs-collapse-open:hidden flex-shrink-0 size-4" />
-                <img src={CloseIcon.src} alt="close menu" class="hs-collapse-open:block hidden flex-shrink-0 size-4"/>
-              </button>
-            </div>
-          </div>
-          <div id="navbar-collapse-with-animation" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">
-            <div class="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
-              {
-                Links.map((link, index: number) => {
-                  return (
-                    <a
-                      class="flex font-medium items-center gap-2 md:p-0 px-4 text-lg text-white"
-                      href={link.href}
-                    >
-                      <img
-                        src={DB_Menu.icons[index].src}
-                        alt={DB_Menu.icons[index].alt}
-                        class="md:w-6 w-4"
-                      />{" "}
-                      {link.link}
-                    </a>
-                  );
-                })
-              }
-            </div>
-          </div>
-          <div class="flex gap-4 items-center justify-center md:w-auto w-full">
-            <ButtonDarkMode client:load />
-            <a
-              href="/"
-              class:list={[
-                { "font-bold": !isNavigatorInSpanish },
-                { "font-bold text-white": isNavigatorInSpanish },
-              ]}
-            >
-              EN</a
-            > |
-            <a
-              href="/es"
-              class:list={[
-                { "font-bold": isNavigatorInSpanish },
-                { "font-bold text-white": !isNavigatorInSpanish },
-              ]}
-              ,
-            >
-              ES</a
-            >
-          </div>
-        </nav>
-      </header>
-
-
-      
       <main
         class="flex flex-col justify-start md:w-3/4 mx-auto px-4 h-full w-full"
       >

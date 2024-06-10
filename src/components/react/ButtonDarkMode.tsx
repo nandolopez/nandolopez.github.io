@@ -39,7 +39,7 @@ const ButtonDarkMode = () => {
 
   // Dark mdoe button toggler / switchser
   return (
-    <button onClick={onClickButtonToggleDarkMode} className="">
+    <button type="button" onClick={onClickButtonToggleDarkMode} className="">
       {darkMode ? "🌙" : "🌞"}
       </button>
   );

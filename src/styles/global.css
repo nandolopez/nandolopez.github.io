@@ -128,3 +128,7 @@ hr {
 .contains-task-list {
   @apply list-none;
 }
+
+.bg-nando {
+  @apply bg-gradient-to-r from-cyan-500 to-indigo-900;
+}
