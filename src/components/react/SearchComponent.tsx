@@ -10,7 +10,7 @@ import CloseIcon from "@/assets/svg/Close.svg";
  *  2.3 Show results
  * 3. On type something to search
  * 4. Show search the results
- * v
+ *
  */
 const SearchComponent = () => {
   /**
@@ -31,38 +31,37 @@ const SearchComponent = () => {
   const [posts, setPosts] = useState<IPostSearch[]>([]);
   const [query, setQuery] = useState<string>("");
 
-
   /**
    * 1. Show button that turn on the modal
    * 2. Open modal
-   * Get Posts from Endpoint 
+   * Get Posts from Endpoint
    */
-  const onClickButtonSearch = async () => {
+  const onCheckSearchCheckbox = async (event: any) => {
+    console.log(event.target.value);
     const response = await fetch(Endpoint);
     const data = await response.json();
     setPosts(data);
-    
   };
 
-   /**
+  /**
    * 3. On type something to search
    * @param event
-   * 
+   *
    * Save wrote text in Search input in query variable
    */
-  const onChangeInputSearch = (event: any) =>{
-    const input = event.target.value.toLowerCase();    
-    setQuery(input)
-  }
+  const onChangeInputSearch = (event: any) => {
+    const input = event.target.value.toLowerCase();
+    setQuery(input);
+  };
 
-   /**
+  /**
    * 4. Show search the results
-   * 
+   *
    *  A) Filter the posts and find the term wrote in Search input
    *  B) Search the results in links to the post
    */
-  const getSearchResults = () =>{
-    if(query.length > 0 ){
+  const getSearchResults = () => {
+    if (query.length > 0) {
       const results = posts.filter((element: IPostSearch) => {
         return (
           element.title.toLowerCase().includes(query) ||
@@ -70,83 +69,62 @@ const SearchComponent = () => {
           element.slug.toLowerCase().includes(query)
         );
       });
-      return results.map((e: IPostSearch)=>{
+      return results.map((e: IPostSearch) => {
         return (
-          <a href={Postlink + e.slug} className="border-b-2 border-b-slate-300 mb-2 text-white">
-              <h4>{e.title}</h4>
-              <p>{e.description}</p>
+          <a
+            href={Postlink + e.slug}
+            className="border-b-2 border-b-slate-300 mb-4"
+          >
+            <h4 className="text-white mb-1">{e.title}</h4>
+            <p className="text-sky-500">{e.description}</p>
           </a>
-        )
-      })
+        );
+      });
     }
-    return (<></>)
-  }
-
+    return <></>;
+  };
 
   /**
    * 5. Close Modal and reset the input search
-   * 
+   *
    *  Reset all
    */
 
-  const onClickButtonClose = () =>{
-    setQuery("")
-    setPosts([])
-  }
-
-
+  const onClickButtonClose = () => {
+    setQuery("");
+    setPosts([]);
+  };
 
   return (
     <>
-      <button
-        type="button"
-        className="block"
-        data-hs-overlay="#search-modal"
-        onClick={onClickButtonSearch}
-      >
+      <label htmlFor="search-open">
         <img src={SearchIcon.src} alt="Search" />
-      </button>
-
-      <div
-        id="search-modal"
-        className="hs-overlay hs-overlay-open:opacity-100 hs-overlay-open:duration-500 hidden size-full fixed top-0 start-0 z-[80] opacity-0 overflow-x-hidden transition-all overflow-y-auto pointer-events-none"
-      >
-        <div className="sm:max-w-lg sm:w-full m-3 sm:mx-auto">
-          <div className="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
-            <div className="flex justify-end items-center py-3 px-4 border-b dark:border-neutral-700">
-              <button
-                type="button"
-                className="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700"
-                data-hs-overlay="#search-modal"
-                onClick={onClickButtonClose}
-              >
-                <img src={CloseIcon.src} alt="close" />
-              </button>
-            </div>
-            <div className="p-4 overflow-y-auto">
-              <div className="relative p-4 border-b border-gray-200 dark:border-neutral-700">
-                <div className="relative">
-                  <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
-                    <img
-                      src={SearchIcon.src}
-                      alt="search"
-                      className="flex-shrink-0 size-4 text-gray-400 dark:text-white/60"
-                    />
-                  </div>
-                  <input
-                    className="py-3 ps-10 pe-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                    type="search"
-                    placeholder="Search"
-                    onChange={onChangeInputSearch}
-                  />
-                </div>
-              </div>
-
-              <div className="rounded-b-lg overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 py-4">
-                {getSearchResults()}
-              </div>
-            </div>
-          </div>
+      </label>
+      <input
+        type="checkbox"
+        className="hidden peer"
+        id="search-open"
+        onChange={($event) => onCheckSearchCheckbox($event)}
+      />
+      <div className="absolute bg-gradient-to-b from-blue-950 to-indigo-900 flex-col gap-4 h-dvh hidden items-center justify-center left-0 transition-opacity duration-200 opacity-0 peer-checked:flex peer-checked:opacity-90  top-0 w-full z-10">
+        <label htmlFor="search-open" className="absolute top-8 right-8">
+          <img src={CloseIcon.src} alt="Search" className="w-12" />
+        </label>
+        <div className="border-b-2 border-b-white flex gap-4 items-center py-2 w-10/12 md:w-6/12">
+          <label htmlFor="search-input">
+            <img src={SearchIcon.src} alt="Search" />
+          </label>
+          <input
+            type="text"
+            placeholder="Search"
+            className="bg-transparent text-xl w-full focus:appearance-none focus:ring-0 focus:ring-offset-0 border-none p-2"
+            id="search-input"
+            autoFocus
+            onChange={onChangeInputSearch}
+          />
+        </div>
+        <div className=" overflow-y-auto h-3/4 w-10/12">
+          {getSearchResults()}
         </div>
       </div>
     </>

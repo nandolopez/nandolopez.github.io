@@ -14,7 +14,7 @@ const PageInfo = {
   },
   i18n:{
     // Translation
-    Title: "🙋🏻‍♂️ Wellcome to my Blog",
+    Title: "🙋🏻‍♂️ Welcome to my Blog",
     LongDescription: "Here going the long desription",
     link_post: "/post/",
     link_prev: "See newest posts",
@@ -34,4 +34,4 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 ---
 
-<PostsListsComponent info={PageInfo} page={page} />¡
+<PostsListsComponent info={PageInfo} page={page} />

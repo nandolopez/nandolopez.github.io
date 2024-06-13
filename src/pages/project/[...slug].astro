@@ -8,8 +8,7 @@ import Layout from "@/layouts/default.astro";
 export async function getStaticPaths() {
 	// Getting all posts in english
 	const Posts = await getCollection(
-		"projects",
-		(entry: any) => entry.data.language === "en"
+		"projects"
 	);
 	// Finding the post using the Astro documented way
 	return Posts.map((post: any) => ({

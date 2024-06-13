@@ -3,15 +3,18 @@ import type { CollectionEntry } from "astro:content";
 //import Header from "../components/structure/Header.astro";
 import { ViewTransitions } from "astro:transitions";
 // Import the global.css file here so that it is included on
-import "../styles/global.css";
 import { social_medias } from "@/db/Social";
 import { DB_Menu } from "@/db/DB_Menu";
+import { Image } from "astro:assets";
 import SearchComponent from "@/components/react/SearchComponent";
 import ButtonDarkMode from "@/components/react/ButtonDarkMode";
 import MenuIcon from "@/assets/svg/Menu.svg";
-import CloseIcon from "@/assets/svg/Close.svg";
-import { Image } from "astro:assets";
 import NavbarLinkComponent from "@/components/NavbarLinkComponent.astro";
+import "@fontsource/open-sans";
+import "@fontsource-variable/playfair";
+import "@fontsource/open-sans";
+import "../styles/global.css";
+
 /**
  * Load parameters for SEO Stuff
  */
@@ -30,28 +33,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Font preloads -->
-    <link
-      rel="preload"
-      href="/fonts/Poppins-Bold.ttf"
-      as="font"
-      type="font/ttf"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/Playfair_144pt-SemiBold.ttf"
-      as="font"
-      type="font/ttf"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/OpenSans-Regular.ttf"
-      as="font"
-      type="font/ttf"
-      crossorigin
-    />
     {index ? <meta name="robots" content="noindex" /> : ""}
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
@@ -119,9 +100,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </script>
   </head>
 
-  <body class="bg-sky-100 dark:bg-slate-900 dark:text-white m-0 max-w-screen">
+  <body
+    class="bg-sky-100 dark:bg-slate-900 dark:text-white flex flex-col justify-between gap-4 min-h-dvh m-0 max-w-screen relative"
+  >
     <!--Header navbar -->
-    <header class="bg-nando flex flex-wrap lg:flex-nowrap gap-4 justify-between p-4 w-full">
+    <header
+      class="bg-nando flex flex-wrap md:flex-nowrap gap-4 justify-between items-center p-4 w-full z-4"
+    >
       <a href="/">
         <img
           src="/svg_social/Logo.svg"
@@ -135,23 +120,23 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       </div>
       <!-- Menu Button for Mobile -->
       <input type="checkbox" class="peer hidden" id="navbar-open" />
-      <label for="navbar-open" class="lg:hidden">
+      <label for="navbar-open" class="md:hidden">
         <span class="sr-only">Open main menu</span>
         <Image src={MenuIcon} alt="Open menu" class="w-12" />
       </label>
       <!-- Menu Button for Mobile -->
       <!-- Menu Items -->
       <div
-        class="hidden peer-checked:flex lg:flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-end lg:relative w-full z-4"
+        class="duration-1000 flex-col gap-4 hidden md:flex md:flex-row md:items-center md:justify-end md:mt-0 mt-[calc(-100%)] peer-checked:mt-0 peer-checked:flex transition-transform w-full"
         id="menu"
       >
-        <nav class="lg:flex gap-8">
+        <nav class="md:flex gap-8">
           {
             DB_Menu.map((link) => {
               return (
-                <NavbarLinkComponent 
-                  class="flex items-center gap-2 md:p-0 px-4 text-lg"
-                  href={link.href}
+                <NavbarLinkComponent
+                  class="flex items-center gap-2 px-4 py-2 rounded-xl text-lg rotate-0 hover:bg-gradient-to-r hover:from-indigo-800 hover:to-cyan-300 hover:-rotate-3 transition-all"
+                  href={link.href}                  
                 >
                   <img src={link.src} alt={link.alt} class="md:w-6 w-4" />{" "}
                   {link.link}
@@ -159,39 +144,30 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
               );
             })
           }
-         
         </nav>
       </div>
     </header>
     <!-- Menu Items -->
 
     <!--Header navbar -->
-
-    <div
-      class="box-content flex flex-col justify-between min-h-screen mx-auto w-full"
+    <main class="flex flex-col justify-start md:w-3/4 mx-auto px-4 w-full">
+      <slot />
+    </main>
+    <footer
+      class="bg-gradient-to-r from-cyan-300 to-indigo-800 flex justify-around p-4 rounded-t-full w-full"
     >
-      <main
-        class="flex flex-col justify-start md:w-3/4 mx-auto px-4 h-full w-full"
-      >
-        <slot />
-      </main>
-      <footer
-        class="bg-gradient-to-r from-cyan-300 to-indigo-800 flex justify-around p-4 rounded-t-full w-full"
-      >
-        <div class="flex items-center gap-8">
-          {
-            social_medias
-              .filter((link: any) => link.inFooter === true)
-              .map((link: any) => (
-                <a href={link.link} target="_blank" class="text-white">
-                  <span class="sr-only">Follow Astro on Mastodon</span>
-                  <img src={link.icon} alt={link.alt} class="w-12" />
-                </a>
-              ))
-          }
-        </div>
-      </footer>
-    </div>
-    <script is:inline src="./node_modules/preline/dist/preline.js"></script>
+      <div class="flex items-center gap-8">
+        {
+          social_medias
+            .filter((link: any) => link.inFooter === true)
+            .map((link: any) => (
+              <a href={link.link} target="_blank" class="text-white">
+                <span class="sr-only">Follow Astro on Mastodon</span>
+                <img src={link.icon} alt={link.alt} class="w-12" />
+              </a>
+            ))
+        }
+      </div>
+    </footer>
   </body>
 </html>

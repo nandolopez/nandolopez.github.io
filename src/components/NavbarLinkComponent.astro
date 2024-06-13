@@ -9,6 +9,6 @@ const { pathname } = Astro.url;
 const isActive = href === pathname
 ---
 
-<a href={href} class="text-white" class:list={[className, { "font-bold text-indigo-800": isActive }]}  {...props} >
+<a href={href} class="text-white" class:list={[className, { "bg-gradient-to-r from-cyan-300 to-indigo-800 ": isActive }]}  {...props} >
 	<slot />
 </a>

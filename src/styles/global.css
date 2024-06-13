@@ -2,21 +2,9 @@
   INDIVIDUAL ELEMENTS
  */
 
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-Bold.ttf") format("ttf");
-}
-@font-face {
-  font-family: "Playfair";
-  src: url("/fonts/Playfair_144pt-SemiBold.ttf") format("ttf");
-}
-@font-face {
-  font-family: "OpenSans";
-  src: url("/fonts/OpenSans-Regular.ttf") format("ttf");
-}
 
 body {
-  font-family: "OpenSans", sans-serif;
+  font-family: 'Open Sans Variable', sans-serif;
 }
 
 a {
@@ -37,7 +25,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins Variable", sans-serif;
   @apply mb-8 font-bold;
 }
 h1 {
@@ -50,7 +38,7 @@ h3 {
   @apply text-3xl;
 }
 h4 {
-  font-family: "Playfair", sans-serif;
+  font-family: 'Playfair Variable', serif;
   @apply text-2xl;
 }
 h5 {

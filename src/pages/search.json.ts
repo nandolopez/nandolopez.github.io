@@ -2,7 +2,7 @@ import { getCollection } from "astro:content";
 
 export async function GET({ params, request }) {
   const Posts = (
-    await getCollection("blog", (entry: any) => entry.data.language === "en")
+    await getCollection("blog")
   ).map((post: any) => {
     const data = post.data;
     return {

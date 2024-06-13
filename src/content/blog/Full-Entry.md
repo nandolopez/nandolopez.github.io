@@ -1,7 +1,6 @@
 ---
 title: Full Entry with long title for test how works
 description: Descripcción de la entrada completa
-language: en
 index: true
 pubDate: 2024-04-01
 update_date: 2024-04-01
