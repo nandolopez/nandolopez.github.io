@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import SearchIcon from "@/assets/svg/SearchIcon.svg";
-import CloseIcon from "@/assets/svg/Close.svg";
-import type { IPostSearch } from "@/interfaces/IPostSearch";
+import SearchIcon from "../../assets/svg/SearchIcon.svg";
+import CloseIcon from "../../assets/svg/Close.svg";
+import type { IPostSearch } from "../../interfaces/IPostSearch";
 
 /**
  * Necessary elements:
