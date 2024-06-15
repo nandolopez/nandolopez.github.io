@@ -3,6 +3,7 @@ import SearchIcon from "@/assets/svg/SearchIcon.svg";
 import CloseIcon from "@/assets/svg/Close.svg";
 import type { IPostSearch } from "@/interfaces/IPostSearch";
 
+
 /**
  * Necessary elements:
  * - @HTML Button for open modal
