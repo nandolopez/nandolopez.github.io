@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-import react from '@astrojs/react';
+import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
@@ -10,5 +9,5 @@ export default defineConfig({
   build: {
     format: "file"
   },
-  integrations: [mdx(), sitemap(), tailwind(), react()]
+  integrations: [sitemap(), tailwind(), react()]
 });
