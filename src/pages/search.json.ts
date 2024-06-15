@@ -1,6 +1,6 @@
 import { getCollection } from "astro:content";
 
-export async function GET({ params, request }) {
+export async function GET() {
   const Posts = (
     await getCollection("blog")
   ).map((post: any) => {
@@ -9,6 +9,8 @@ export async function GET({ params, request }) {
       title: data.title,
       description: data.description,
       slug: post.slug,
+      topic: data.topic,
+      thumbnail: data.thumbnail
     };
   });
 

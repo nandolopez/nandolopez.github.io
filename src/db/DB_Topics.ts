@@ -1,0 +1,19 @@
+export const DB_Topics = [
+  "Angular",
+  "Apple",
+  "Azure",
+  "Edge",
+  "Electron",
+  "Github",
+  "Javascript",
+  "MySQL",
+  "NodeJS",
+  "PHP",
+  "PostgreSQL",
+  "Python",
+  "Ubuntu",
+  "Vite",
+  "Vscode",
+  "Windows",
+  "Wordpress"
+];

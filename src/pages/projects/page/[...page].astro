@@ -1,0 +1,49 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/default.astro";
+import ListPostsComponent from "@/components/Lists/ListPostsComponent.astro";
+import ListTopicsComponent from "@/components/Lists/ListTopicsComponent.astro";
+
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const Posts: any = await getCollection("blog");
+  return paginate(Posts, { pageSize: 10 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+<Layout
+  title="🪧 Here you can see my posts"
+  description=""
+  pubDate={new Date()}
+  index={true}
+  thumbnail={"Logo.src"}
+>
+  <div class="glassmorph w-full mb-4">
+    <h1 class="text-4xl font-bold">🙋🏻‍♂️ Fernando's blog</h1>
+    <p class="text-lg">Here going the long desription</p>
+  </div>
+  <div class="flex flex-col md:flex-row gap-4">
+    <section class="glassmorph md:w-3/4 w-full">
+      <ListPostsComponent Posts={page.data} Path="/blog/post"/>
+      <div class="flex items-center justify-between text-right px-4 w-full">
+        {
+          page.url.prev && (
+            <a href={page.url.prev}>Recent posts</a>
+          )
+        }
+        {
+          page.url.next && (
+            <a href={page.url.next}>Previous posts</a>
+          )
+        }
+        </div>
+      </section>
+      <aside class="glassmorph md:w-1/4 w-full">
+        <h3>Topics</h3>
+        <ListTopicsComponent />
+      </aside>
+    </section>
+  </div>
+</Layout>

@@ -1,0 +1,20 @@
+---
+import { DB_Topics } from "@/db/DB_Topics";
+---
+
+<div class="flex flex-wrap  justify-center gap-4">
+  {
+    DB_Topics.map((topic) => (
+      <a
+        href={`/topics/${topic}`}
+        class="bg-white hover:bg-cyan-300 rounded-xl"
+      >
+        <img
+          src={`/svg_topics/${topic}.svg`}
+          alt={topic}
+          class="w-24 h-24 p-2 shadow-lg"
+        />
+      </a>
+    ))
+  }
+</div>

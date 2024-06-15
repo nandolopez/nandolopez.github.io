@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/default.astro";
+import ListPostsComponent from "@/components/Lists/ListPostsComponent.astro";
+import { DB_Topics } from "@/db/DB_Topics";
+
+export async function getStaticPaths() {
+  return DB_Topics.map((topic_name: string) => {
+    return {
+      params: {
+        topic: topic_name,
+      },
+    };
+  });
+}
+
+const { topic } = Astro.params;
+
+const Posts = (
+  await getCollection("blog", (entry: any) => entry.data.topic === topic)
+).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+
+---
+
+<Layout
+  title={topic}
+  description=""
+  pubDate={new Date()}
+  index={true}
+  thumbnail={"Logo.src"}
+>
+  <div class="glassmorph w-full mb-4">
+    <h1 class="text-4xl font-bold">🙋🏻‍♂️ Fernando's blog</h1>
+    <p class="text-lg">Here going the long desription</p>
+  </div>
+  <div class="glassmorph w-full">
+    <ListPostsComponent Posts={Posts} Path="/blog/post" />
+    {Posts.length === 0 && (
+      
+      <p>I don't have posts related this topic page, please contact with <a href="/contact">contact with me</a> if you need that I write about this topic</p>
+    )}
+  </div>
+  
+</Layout>

@@ -3,9 +3,8 @@ import type { CollectionEntry } from "astro:content";
 //import Header from "../components/structure/Header.astro";
 import { ViewTransitions } from "astro:transitions";
 // Import the global.css file here so that it is included on
-import { social_medias } from "@/db/Social";
+
 import { DB_Menu } from "@/db/DB_Menu";
-import { Image } from "astro:assets";
 import SearchComponent from "@/components/react/SearchComponent";
 import ButtonDarkMode from "@/components/react/ButtonDarkMode";
 import MenuIcon from "@/assets/svg/Menu.svg";
@@ -14,6 +13,7 @@ import "@fontsource/open-sans";
 import "@fontsource-variable/playfair";
 import "@fontsource/open-sans";
 import "../styles/global.css";
+import { DB_SocialMedia } from "@/db/DB_SocialMedia";
 
 /**
  * Load parameters for SEO Stuff
@@ -100,12 +100,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </script>
   </head>
 
-  <body
-    class="bg-sky-100 dark:bg-slate-900 dark:text-white flex flex-col justify-between gap-4 min-h-dvh m-0 max-w-screen relative"
+  <ndy
+    class="bg-gradient-to-t from-violet-400 via-pink-500 to-yellow-500 dark:from-violet-600 dark:via-pink-700 dark:to-yellow-600 dark:text-white flex flex-col justify-between gap-4 min-h-dvh m-0 max-w-screen relative"
   >
     <!--Header navbar -->
     <header
-      class="bg-nando flex flex-wrap md:flex-nowrap gap-4 justify-between items-center p-4 w-full z-4"
+      class="bg-white/20 backdrop-blur-sm flex flex-wrap md:flex-nowrap gap-4 justify-between items-center shadow-lg p-4 w-full z-40"
     >
       <a href="/">
         <img
@@ -122,7 +122,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <input type="checkbox" class="peer hidden" id="navbar-open" />
       <label for="navbar-open" class="md:hidden">
         <span class="sr-only">Open main menu</span>
-        <Image src={MenuIcon} alt="Open menu" class="w-12" />
+        <img src={MenuIcon.src} alt="Open menu" class="w-12" />
       </label>
       <!-- Menu Button for Mobile -->
       <!-- Menu Items -->
@@ -135,7 +135,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             DB_Menu.map((link) => {
               return (
                 <NavbarLinkComponent
-                  class="flex items-center gap-2 px-4 py-2 rounded-xl text-lg rotate-0 hover:bg-gradient-to-t hover:from-indigo-800 hover:to-cyan-300 hover:-rotate-3 transition-all"
+                  class="flex items-center gap-2 px-4 py-2 rounded-xl text-lg rotate-0 hover:bg-gradient-to-t hover:from-indigo-600 hover:to-violet-400 hover:-rotate-3 transition-all"
                   href={link.href}                  
                 >
                   <img src={link.src} alt={link.alt} class="md:w-6 w-4" />{" "}
@@ -150,15 +150,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Menu Items -->
 
     <!--Header navbar -->
-    <main class="flex flex-col justify-start md:w-3/4 mx-auto px-4 w-full">
+    <main class=" flex flex-col justify-start md:w-3/4 mx-auto p-4 w-full z-10">
       <slot />
     </main>
     <footer
-      class="bg-gradient-to-r from-cyan-300 to-indigo-800 flex justify-around p-4 rounded-t-full w-full"
+      class="bg-gradient-to-t from-indigo-600 to-violet-400 flex justify-around p-4 rounded-t-full w-full"
     >
       <div class="flex items-center gap-8">
         {
-          social_medias
+          DB_SocialMedia
             .filter((link: any) => link.inFooter === true)
             .map((link: any) => (
               <a href={link.link} target="_blank" class="text-white">
@@ -169,5 +169,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         }
       </div>
     </footer>
-  </body>
+  </navdy>
 </html>

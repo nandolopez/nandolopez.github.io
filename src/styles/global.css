@@ -8,7 +8,7 @@ body {
 }
 
 a {
-  @apply text-sky-300 font-bold
+  @apply text-purple-700 font-bold
 }
 dd {
   @apply text-lg font-semibold;
@@ -117,6 +117,34 @@ hr {
   @apply list-none;
 }
 
-.bg-nando {
-  @apply bg-gradient-to-r from-cyan-500 to-indigo-900;
+.glassmorph {
+  @apply bg-white/60 backdrop-blur-sm rounded-xl shadow-lg p-4
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+dialog {
+  /* dialog styles */
+
+  /* Initially invisible */
+  opacity: 0;
+}
+
+dialog[open] {
+  /* Apply animation properties to the open dialog */
+  opacity: 1;
+  animation: fade-in 0.5s ease-in-out;
+}
+
+dialog::backdrop {
+  /* Styles for the backdrop */
+}
+
+dialog[open]::backdrop {
+  /* Apply animation properties to the open backdrop */
+  opacity: 1;
+  animation: fade-in 0.5s ease-in-out;
 }

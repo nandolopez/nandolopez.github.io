@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/default.astro";
+import ListPostsComponent from "@/components/Lists/ListPostsComponent.astro";
+
+const Posts = (await getCollection("projects"))
+  .slice(0, 10)
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+---
+
+<Layout
+  title="🪧 Here you can see my posts"
+  description=""
+  pubDate={new Date()}
+  index={true}
+  thumbnail={"Logo.src"}
+>
+  <div class="glassmorph w-full mb-4">
+    <h1 class="text-4xl font-bold">🙋🏻‍♂️ Fernando's blog</h1>
+    <p class="text-lg">Here going the long desription</p>
+  </div>
+  <div class="flex flex-col md:flex-row gap-4">
+    <section class="glassmorph w-full">
+      <ListPostsComponent Posts={Posts} Path="/projects/project"/>
+        {
+          Posts.length === 10 && (
+            <div class="flex items-center justify-end text-right px-4 w-full">
+              <a href={`/projects/page/2`} class="text-xl text-blue-600">
+                Previous posts
+              </a>
+            </div>
+          )
+        }
+      </section>
+    </section>
+  </div>
+</Layout>

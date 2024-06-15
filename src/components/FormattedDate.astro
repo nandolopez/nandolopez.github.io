@@ -7,9 +7,9 @@ const { date } = Astro.props;
 const finalDate = new Date(date)
 ---
 
-<time datetime={finalDate.toString()}>
+<time datetime={finalDate.toString()} class="w-32">
 	{
-		finalDate.toLocaleDateString('es', {
+		finalDate.toLocaleDateString('en-UK', {
 			day: 'numeric',
 			month: 'long',
 			year: 'numeric',
