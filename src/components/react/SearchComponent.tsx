@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import SearchIcon from "@/assets/svg/SearchIcon.svg";
 import CloseIcon from "@/assets/svg/Close.svg";
-import type { IPostSearch } from "@/interfaces/IPostSearch";
-
 
 /**
  * Necessary elements:
@@ -27,7 +25,7 @@ const SearchComponent = () => {
   // Text of search input
   const [InputSearch, setInputSearch] = useState("");
   // Posts list to filter
-  const [Posts, setPosts] = useState<IPostSearch[]>([]);
+  const [Posts, setPosts] = useState([]);
   // Modal reference for open / close it
   const ModalReference = useRef<HTMLDialogElement>(null);
 
@@ -64,14 +62,14 @@ const SearchComponent = () => {
   const SearchResultVisualizer = () => {
     const input = InputSearch.toLowerCase();
     if (input.length > 0) {
-      const results = Posts.filter((element: IPostSearch) => {
+      const results = Posts.filter((element: any) => {
         return (
           element.title.toLowerCase().includes(input) ||
           element.description.toLowerCase().includes(input) ||
           element.slug.toLowerCase().includes(input)
         );
       });
-      return results.map((post: IPostSearch) => {
+      return results.map((post: any) => {
         return (
           <article className="border-b-2 border-white pb-4 flex gap-4">
             <a
