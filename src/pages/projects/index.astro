@@ -5,7 +5,7 @@ import ListPostsComponent from "@/components/Lists/ListPostsComponent.astro";
 
 const Posts = (await getCollection("projects"))
   .slice(0, 10)
-  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+  .sort((a:any, b:any) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
 ---
 
 <Layout
