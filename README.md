@@ -7,3 +7,4 @@ This page have been created using Web languages (HTML, CSS, Javascript) and foll
 - [Astro](https://astro.build/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [React](https://react.dev/)
+- [Icons from Iconify](https://iconify.design/)
