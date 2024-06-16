@@ -6,7 +6,7 @@ import ListPostsComponent from "@/components/Lists/ListPostsComponent.astro";
 import ListTopicsComponent from "@/components/Lists/ListTopicsComponent.astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const Posts: any = await getCollection("blog");
+  const Posts: any = (await getCollection("blog", (post)=>post.data.status === 'Published')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
   return paginate(Posts, { pageSize: 10 });
 }) satisfies GetStaticPaths;
 

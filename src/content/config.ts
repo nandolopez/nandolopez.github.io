@@ -14,7 +14,7 @@ const blogCollection = defineCollection({
     meta_description: z.string().optional(),
     topic: z.string().optional(),
     status: z.string().optional(),
-    tags: z.string().optional(),
+    tags: z.array(z.string()).optional()
   }),
 });
 

@@ -4,9 +4,9 @@ import Layout from "@/layouts/default.astro";
 import ListPostsComponent from "@/components/Lists/ListPostsComponent.astro";
 import ListTopicsComponent from "@/components/Lists/ListTopicsComponent.astro";
 
-const Posts = (await getCollection("blog"))
+const Posts: any = (await getCollection("blog", (post)=>post.data.status === 'Published'))
   .slice(0, 10)
-  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <Layout
@@ -18,7 +18,9 @@ const Posts = (await getCollection("blog"))
 >
   <div class="glassmorph w-full mb-4">
     <h1 class="text-4xl font-bold">🙋🏻‍♂️ Fernando's blog</h1>
-    <p class="text-lg">Here going the long desription</p>
+    <p class="text-lg">
+      Discover my practical insights, tutorials, and resources on popular programming languages, emerging technologies, and IT topics. My content covers a wide range of subjects, including Python, JavaScript, AI, system administration, network security and cloud computing.
+    </p>
   </div>
   <div class="flex flex-col md:flex-row gap-4">
     <section class="glassmorph md:w-3/4 w-full">

@@ -2,13 +2,12 @@
   INDIVIDUAL ELEMENTS
  */
 
-
 body {
-  font-family: 'Open Sans Variable', sans-serif;
+  font-family: "Open Sans Variable", sans-serif;
 }
 
 a {
-  @apply text-purple-700 font-bold
+  @apply text-purple-700 font-bold;
 }
 dd {
   @apply text-lg font-semibold;
@@ -26,22 +25,19 @@ h4,
 h5,
 h6 {
   font-family: "Poppins Variable", sans-serif;
-  @apply mb-8 font-bold;
+  @apply mt-8 mb-2 font-bold;
 }
 h1 {
-  @apply text-5xl;
+  @apply text-3xl md:text-4xl;
 }
 h2 {
-  @apply text-4xl;
-}
-h3 {
   @apply text-3xl;
 }
-h4 {
-  font-family: 'Playfair Variable', serif;
+h3 {
   @apply text-2xl;
 }
-h5 {
+h4 {
+  font-family: "Playfair Variable", serif;
   @apply text-xl;
 }
 
@@ -59,19 +55,16 @@ img {
 }
 
 ol {
-  @apply list-disc;
+  @apply list-decimal;
 }
 
 ol,
 ul {
-  @apply ml-8 my-4;
+  @apply ml-4 mt-1;
 }
 
-p {
-  @apply my-4;
-}
 pre {
-  @apply my-2 overflow-x-scroll max-w-80 md:max-w-full;
+  @apply my-4 overflow-x-scroll max-w-80 md:max-w-full;
 }
 
 table {
@@ -88,16 +81,14 @@ tr {
 }
 
 ul {
-  @apply list-decimal;
+  @apply list-disc;
 }
 
 code {
-  padding: 2px 5px;
-  border-radius: 2px;
+  @apply rounded-lg p-4;
 }
 pre {
-  padding: 1.5em;
-  border-radius: 8px;
+  @apply rounded-lg p-4;
 }
 pre > code {
   all: unset;
@@ -110,7 +101,9 @@ blockquote {
 hr {
   border: none;
 }
-
+p {
+  @apply mb-2;
+}
 /*CLASSES*/
 
 .contains-task-list {
@@ -118,12 +111,16 @@ hr {
 }
 
 .glassmorph {
-  @apply bg-white/60 backdrop-blur-sm rounded-xl shadow-lg p-4
+  @apply bg-white/60 backdrop-blur-sm rounded-xl shadow-lg p-4;
 }
 
 @keyframes fade-in {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 dialog {
@@ -148,3 +145,11 @@ dialog[open]::backdrop {
   opacity: 1;
   animation: fade-in 0.5s ease-in-out;
 }
+
+.post img {
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  min-width: 80% !important;
+}
+

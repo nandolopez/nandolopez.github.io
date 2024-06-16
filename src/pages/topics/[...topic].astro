@@ -4,7 +4,7 @@ import Layout from "@/layouts/default.astro";
 import ListPostsComponent from "@/components/Lists/ListPostsComponent.astro";
 import { DB_Topics } from "@/db/DB_Topics";
 
-export async function getStaticPaths() {
+export const getStaticPaths = () => {
   return DB_Topics.map((topic_name: string) => {
     return {
       params: {
@@ -17,9 +17,12 @@ export async function getStaticPaths() {
 const { topic } = Astro.params;
 
 const Posts = (
-  await getCollection("blog", (entry: any) => entry.data.topic === topic)
+  await getCollection(
+    "blog",
+    (entry: any) =>
+      entry.data.topic === topic && entry.data.status === "Published"
+  )
 ).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
-
 ---
 
 <Layout
@@ -35,10 +38,14 @@ const Posts = (
   </div>
   <div class="glassmorph w-full">
     <ListPostsComponent Posts={Posts} Path="/blog/post" />
-    {Posts.length === 0 && (
-      
-      <p>I don't have posts related this topic page, please contact with <a href="/contact">contact with me</a> if you need that I write about this topic</p>
-    )}
+    {
+      Posts.length === 0 && (
+        <p>
+          I don't have posts related this topic page, please contact with{" "}
+          <a href="/contact">contact with me</a> if you need that I write about
+          this topic
+        </p>
+      )
+    }
   </div>
-  
 </Layout>

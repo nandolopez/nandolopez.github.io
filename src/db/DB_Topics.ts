@@ -1,5 +1,6 @@
 export const DB_Topics = [
   "Angular",
+  "Astro",
   "Apple",
   "Azure",
   "Edge",
@@ -11,6 +12,7 @@ export const DB_Topics = [
   "PHP",
   "PostgreSQL",
   "Python",
+  "React",
   "Ubuntu",
   "Vite",
   "Vscode",

@@ -12,8 +12,8 @@ const { Path, Posts } = Astro.props;
 <div class="flex flex-col flex-wrap gap-4 justify-between p-4 rounded-xl">
   {
     Posts.map((post: any) => (
-      <article class=" border-b-2 border-white pb-4 flex gap-4">
-        <a href={`${Path}/${post.slug}`} class="bg-white p-2 rounded-xl">
+      <article class="border-b-2 border-white flex flex-col md:flex-row items-center gap-4 pb-4">
+        <a href={`${Path}/${post.slug}`} class="bg-white p-2 rounded-xl w-24 h-24">
           <img
             src={
               post.data.thumbnail
@@ -25,9 +25,9 @@ const { Path, Posts } = Astro.props;
           />
         </a>
         <section class="flex flex-col w-full">
-          <div class="flex gap-4 w-full">
+          <div class="flex flex-col md:flex-row items-center gap-4 w-full">
             <a href={`${Path}/${post.slug}`} class="w-full">
-              <h2 class="mb-0 w-full">{post.data.title}</h2>
+              <h3 class="mb-0 w-full text-cen">{post.data.title}</h3>
             </a>
             <FormattedDate date={post.data.pubDate} />
           </div>

@@ -18,27 +18,72 @@ export async function getStaticPaths() {
 const post = Astro.props;
 const { Content } = await (post as any).render();
 ---
-
 <Layout {...post.data}>
   
-
-  <nav class="glassmorph flex gap-2 items-center mb-4 p-4 w-full">
+  <nav class="glassmorph flex md:flex-row gap-2 items-center mb-4 p-4 w-full">
     <a href="/">
-      <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-        <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+      <svg
+        class="w-3 h-3 me-2.5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"
+        ></path>
       </svg>
     </a>
-    <img src="/svgs/arrow_right.svg" alt="" class="w-2">
+    <img src="/svgs/arrow_right.svg" alt="" class="w-2" />
     <a href="/blog">Blog</a>
-    <img src="/svgs/arrow_right.svg" alt="" class="w-2">
+    <img src="/svgs/arrow_right.svg" alt="" class="w-2" />
     <a href={`/topic/${post.data.topic}`}>{post.data.topic}</a>
-    <img src="/svgs/arrow_right.svg" alt="" class="w-2">
-    <span>{post.data.title}</span>
-
+    <img src="/svgs/arrow_right.svg" alt="" class="w-2 hidden md:block" />
+    <span class="hidden md:block">{post.data.title}</span>
   </nav>
-  <div class="glassmorph p-4 w-full">
-    <Content />
+  <div class="glassmorph flex flex-col gap-4 p-4 md:p-8 w-full">
+    <figure class="flex justify-center w-full">
+      <img
+        src={post.data.thumbnail
+          ? post.data.thumbnail
+          : `/svg_topics/${post.data.topic}.svg`}
+        alt={post.data.title}
+        class="bg-white min-w-32 min-h-32 p-2 max-w-full"
+      />
+    </figure>
+    <div class="post md:px-16">
+      <Content />
+    </div>
   </div>
 
+  <script>
+    //Getting all "pre elements"
+    const preBlocks = Array.from(document.querySelectorAll("pre"));
+
+    //if post contains "pre elements"
+    if (preBlocks.length > 0) {
+      //check all pre elements
+      for (let preBlock of preBlocks) {
+        console.log(preBlock.firstChild?.nodeName);
+        if (preBlock.firstChild?.nodeName == "CODE") {
+          const code = preBlock.childNodes[0].textContent;
+          preBlock.classList.add("relative");
+          const copyButton = document.createElement("button");
+          preBlock.appendChild(copyButton);
+          copyButton.innerHTML = "copy code";
+          copyButton.classList.add("absolute");
+          copyButton.classList.add("bg-cyan-600");
+          copyButton.classList.add("p-2");
+          copyButton.classList.add("top-0");
+          copyButton.classList.add("right-0");
+          copyButton.classList.add("rounded-lg");
+          copyButton.addEventListener("click", async () => {
+            await navigator.clipboard.writeText(code || "");
+          });
+        }
+      }
+    }
+  </script>
+  
 
 </Layout>
