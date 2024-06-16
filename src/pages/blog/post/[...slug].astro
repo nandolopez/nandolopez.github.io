@@ -18,8 +18,46 @@ export async function getStaticPaths() {
 const post = Astro.props;
 const { Content } = await (post as any).render();
 ---
-<Layout {...post.data}>
+
+<style>
+  .post {
+    img {
+      display: block;
+      height: auto;
+      margin: 0 auto;
+      min-width: 80% !important;
+    }
+    pre {
+      background-color:#24292e;
+      color:#e1e4e8;
+      display: block !important;
+      max-width: 100%;
+      min-width: 100%;
+      position: relative;
+      width: 100% !important;
+    }
+    code{
+      display: block;
+      padding-top: 1rem;
+    }
+    .btnCopy {
+      background-color: #0284c7;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .lang{
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 0.5rem
+    }
+  }
   
+</style>
+<Layout {...post.data}>
   <nav class="glassmorph flex md:flex-row gap-2 items-center mb-4 p-4 w-full">
     <a href="/">
       <svg
@@ -37,7 +75,7 @@ const { Content } = await (post as any).render();
     <img src="/svgs/arrow_right.svg" alt="" class="w-2" />
     <a href="/blog">Blog</a>
     <img src="/svgs/arrow_right.svg" alt="" class="w-2" />
-    <a href={`/topic/${post.data.topic}`}>{post.data.topic}</a>
+    <a href={`/topics/${post.data.topic}`}>{post.data.topic}</a>
     <img src="/svgs/arrow_right.svg" alt="" class="w-2 hidden md:block" />
     <span class="hidden md:block">{post.data.title}</span>
   </nav>
@@ -48,10 +86,10 @@ const { Content } = await (post as any).render();
           ? post.data.thumbnail
           : `/svg_topics/${post.data.topic}.svg`}
         alt={post.data.title}
-        class="bg-white min-w-32 min-h-32 p-2 max-w-full"
+        class="bg-white min-w-32 min-h-32 p-2 max-w-full rounded-xl"
       />
     </figure>
-    <div class="post md:px-16">
+    <div class="post md:px-8 lg:px-16">
       <Content />
     </div>
   </div>
@@ -64,26 +102,25 @@ const { Content } = await (post as any).render();
     if (preBlocks.length > 0) {
       //check all pre elements
       for (let preBlock of preBlocks) {
-        console.log(preBlock.firstChild?.nodeName);
         if (preBlock.firstChild?.nodeName == "CODE") {
-          const code = preBlock.childNodes[0].textContent;
-          preBlock.classList.add("relative");
+          const divlang = document.createElement("div");
+          preBlock.appendChild(divlang);
+          divlang.innerText = preBlock.getAttribute("data-language") || ""
+          divlang.classList.add('lang')
+          
           const copyButton = document.createElement("button");
           preBlock.appendChild(copyButton);
           copyButton.innerHTML = "copy code";
-          copyButton.classList.add("absolute");
-          copyButton.classList.add("bg-cyan-600");
-          copyButton.classList.add("p-2");
-          copyButton.classList.add("top-0");
-          copyButton.classList.add("right-0");
-          copyButton.classList.add("rounded-lg");
+          copyButton.classList.add("btnCopy");
+
+          
+
           copyButton.addEventListener("click", async () => {
+            const code = preBlock.childNodes[0].textContent;
             await navigator.clipboard.writeText(code || "");
           });
         }
       }
     }
   </script>
-  
-
 </Layout>

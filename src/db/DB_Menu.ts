@@ -4,7 +4,6 @@ import SocialIcon from "@/assets/svg/SocialIcon.svg";
 import BlogIcon from "@/assets/svg/BlogIcon.svg";
 
 import type { IMenuItem } from "@/interfaces/IMenuItem";
-7;
 
 export const DB_Menu: IMenuItem[] = [
   { link: "Home", href: "/", src: HomeIcon.src, alt: "Blog icon" },

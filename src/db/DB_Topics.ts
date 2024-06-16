@@ -1,11 +1,10 @@
-export const DB_Topics = [
+export const DB_Topics = ["Astro", "Github", "Windows"];
+export const unused = [
   "Angular",
-  "Astro",
   "Apple",
   "Azure",
   "Edge",
   "Electron",
-  "Github",
   "Javascript",
   "MySQL",
   "NodeJS",
@@ -16,6 +15,5 @@ export const DB_Topics = [
   "Ubuntu",
   "Vite",
   "Vscode",
-  "Windows",
-  "Wordpress"
+  "Wordpress",
 ];

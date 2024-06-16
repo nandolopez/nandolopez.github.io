@@ -3,6 +3,12 @@ import { useEffect, useState } from "react";
  * 
  * @returns Button dark mode switcher
  * 
+ *  @OnLoadComponent (UseEffect)
+ *  if user has saved in local storage a preference set the preference
+ *  if user has not preference, check if system has darkmode
+ *  if user has not dark mode, toggle twice the dark mode for set in true and then in false the preference
+ *  if user has dark mode, only execute once the toggle
+ * 
  */
 const ButtonDarkMode = () => {
   // Dark mode status
@@ -10,10 +16,10 @@ const ButtonDarkMode = () => {
 
 
   /**
-   * Dark mode toggler
+   * Dark mode toggler function
    */
   const onClickButtonToggleDarkMode = () => {
-    console.log('va')
+    
     // change = oposite status fo darkmode
     const change = !darkMode
 
@@ -33,7 +39,21 @@ const ButtonDarkMode = () => {
 
   // Set darkmode by default
   useEffect(() => {
-    setDarkMode(localStorage.getItem("DarkMode") === "true")
+    
+    // If have a preference for previous access, set the preference
+    if (localStorage.getItem("DarkMode") !== null){
+      // if has dark mode set darkmode
+      localStorage.getItem("DarkMode") === "true" ? onClickButtonToggleDarkMode() : setDarkMode(false);
+    }else{
+      const HasDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if(!HasDarkMode){
+        onClickButtonToggleDarkMode()
+      }
+      onClickButtonToggleDarkMode()
+    }
+
+
+    
   },[])
   
 

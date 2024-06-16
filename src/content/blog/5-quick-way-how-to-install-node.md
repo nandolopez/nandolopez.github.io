@@ -13,3 +13,29 @@ tags:
   - Github
   - git
 ---
+
+
+## Install in Windows
+
+```powershell
+winget install Schniz.fnm
+```
+
+
+## Install in Linux and Mac
+
+```powershell
+curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "./.fnm" --skip-shell
+```
+
+
+## Install NodeJS
+
+```powershell
+# check available versions
+fnm ls
+
+#install version that you want
+fnm install 22
+```
+

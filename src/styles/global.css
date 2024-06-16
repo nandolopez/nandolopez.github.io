@@ -106,10 +106,6 @@ p {
 }
 /*CLASSES*/
 
-.contains-task-list {
-  @apply list-none;
-}
-
 .glassmorph {
   @apply bg-white/60 backdrop-blur-sm rounded-xl shadow-lg p-4;
 }
@@ -124,9 +120,6 @@ p {
 }
 
 dialog {
-  /* dialog styles */
-
-  /* Initially invisible */
   opacity: 0;
 }
 
@@ -146,10 +139,4 @@ dialog[open]::backdrop {
   animation: fade-in 0.5s ease-in-out;
 }
 
-.post img {
-  display: block;
-  height: auto;
-  margin: 0 auto;
-  min-width: 80% !important;
-}
 
