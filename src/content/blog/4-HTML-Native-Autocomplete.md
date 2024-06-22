@@ -1,21 +1,23 @@
 ---
 title: Generate an autocomplete with native HTML without Javascript
-description: In this blog post, we will guide you through the process of fixing the UEFI bootloader in Windows. If you've encountered issues with your Windows system not booting up due to a corrupted or missing UEFI bootloader, this post is for you. We'll walk you through the steps to repair the UEFI bootloader using Windows installation media, ensuring your system gets back to a bootable state. By the end of this post, you'll have the knowledge and confidence to troubleshoot and resolve UEFI bootloader issues in Windows.
+description: If you are tired of find Javascript libraries or do CSS tricks for create an autocomplete in native HTML with native performance
 index: true
-pubDate: 2024-06-15
-update_date: 2024-06-15
-thumbnail: /svg_topics/Windows.svg
-meta_title: Generate an autocomplete with native HTML without Javascript
-meta_description: Learn how to fix the UEFI bootloader in Windows with our step-by-step guide. Solve bootloader issues and restore your system to a functional state.
+pubDate: 2024-06-22
+update_date: 2024-06-22
+thumbnail: /svg_topics/HTML.svg
+meta_title: Native HTML autocomplete without Javascript, CSS or additional code
+meta_description: Discover how to create an autocomplete feature using only HTML, without relying on JavaScript. Improve your website's functionality and accessibility with this simple and effective technique. Learn more here
 topic: HTML
 status: published
-tags: 
-    - HTML
+tags:
+  - HTML
 ---
 
 # Generate an autocomplete with native HTML without Javascript
 
-## Contents
+Recently, for a project be obligated use an autocomplete, the problem was that I found a way that don't affect to performance, due is a big application that will do a heavy load to the browser. Looking for a solution, I found this way that is native in HTML.
+
+As you can see the [compatibility](https://caniuse.com/?search=datalist) of this solution is very high
 
 ## Make an input
 Insert an input with an attribute "list" with the name of the list that you want to create
@@ -65,5 +67,6 @@ Similar to a Select in a form, create an element called "datalist" and insert as
 </body>
 </html>
 ```
+## Final result
+[![Final result of search engine](/img/posts/4/result.gif)](/img/posts/4/result.gif)
 
-## Check the result
