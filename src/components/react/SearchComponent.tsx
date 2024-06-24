@@ -28,12 +28,15 @@ const SearchComponent = () => {
   const [Posts, setPosts] = useState([]);
   // Modal reference for open / close it
   const ModalReference = useRef<HTMLDialogElement>(null);
+  //For set focus on open modal button
+  const InputSearchReference = useRef<HTMLInputElement>(null)
 
   const onClickButtonOpenModal = async () => {
     const response = await fetch("/search.json");
     const data = await response.json();
     setPosts(data);
     ModalReference.current!.open = true;
+    InputSearchReference.current!.focus()
   };
 
   const onClickButtonCloseModal = () => {
@@ -66,7 +69,8 @@ const SearchComponent = () => {
         return (
           element.title.toLowerCase().includes(input) ||
           element.description.toLowerCase().includes(input) ||
-          element.slug.toLowerCase().includes(input)
+          element.slug.toLowerCase().includes(input) ||
+          element.topic.toLowerCase().includes(input)
         );
       });
       return results.map((post: any) => {
@@ -128,7 +132,7 @@ const SearchComponent = () => {
               placeholder="Search"
               className="bg-transparent border-nonefocus:appearance-none focus:ring-0 focus:ring-offset-0 outline-none p-2 placeholder:text-white/80 text-xl w-full "
               id="search-input"
-              autoFocus
+              ref={InputSearchReference}
               value={InputSearch}
               onChange={($event) => onChangeInputSearch($event.target.value)}
             />
