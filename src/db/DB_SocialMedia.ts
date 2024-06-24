@@ -1,12 +1,7 @@
-type SocialMedia = {
-  alt: string;
-  icon: string;
-  inFooter: boolean;
-  link: string;
-  smartlink: string;
-};
+import type { ISocialMedia } from "@/interfaces/ISocialMedia";
 
-export const DB_SocialMedia: SocialMedia[] = [
+
+export const DB_SocialMedia: ISocialMedia[] = [
   {
     alt: "Github",
     link: "https://github.com/nandolopez/",

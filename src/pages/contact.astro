@@ -1,6 +1,8 @@
 ---
-import Layout from "../layouts/default.astro";
+import SmartLink from "@/components/react/SmartLink";
+import Layout from "@/layouts/default.astro";
 import { DB_SocialMedia } from "@/db/DB_SocialMedia";
+import type { ISocialMedia } from "@/interfaces/ISocialMedia";
 ---
 
 <Layout
@@ -9,37 +11,16 @@ import { DB_SocialMedia } from "@/db/DB_SocialMedia";
   pubDate={new Date()}
   index={true}
 >
-<script is:inline>
-  const openLink = (link, smartlink) =>{
-    var start = Date.now();
-    setTimeout(function() {
-      if (Date.now() - start < 1500) {
-        window.location = link;
-      }
-    }, 500);
-    window.location = smartlink;
-  }
-</script>
+
 
   <h2 class="text-center w-full">My Social media links</h2>
   <div
     class="flex flex-col flex-wrap gap-4 justify-around md:flex-row md:w-2/3 mx-auto w-full"
   >
     {
-      DB_SocialMedia.map((link: any) => (
+      DB_SocialMedia.map((link: ISocialMedia) => (
         <article class="glassmorph rounded-md md:w-1/4 md:h-56 w-full">
-          <a
-            href="#"
-            onclick={`openLink("${link.link}", "${link.smartlink}")`}
-            class="flex items-center flex-col gap-4 h-full justify-center md:justify-between p-8 text-center w-full "
-          >
-            <img
-              src={link.icon}
-              alt={link.alt}
-              class="w-12 md:w-20 md:m-auto"
-            />
-            <span class="text-2xl my-auto md:mb-4">{link.alt}</span>
-          </a>
+          <SmartLink  {...link} client:load />
         </article>
       ))
     }
