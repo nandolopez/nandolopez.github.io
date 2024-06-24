@@ -40,6 +40,7 @@ export const DB_SocialMedia: ISocialMedia[] = [
   {
     alt: "Youtube Channel",
     link: "https://www.youtube.com/channel/UCg4pdmmXX07n89Axjm41Gqw",
+    mobilelink: "https://m.youtube.com/channel/UCg4pdmmXX07n89Axjm41Gqw",
     smartlink: "vnd.youtube://channel/UCg4pdmmXX07n89Axjm41Gqw",
     icon: "/svg_social/Youtube.svg",
     inFooter: true,

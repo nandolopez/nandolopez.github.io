@@ -13,7 +13,6 @@ tags:
   - node
   - react
 ---
-
 # 🔍 How to build a search engine for your content in Astro with React
 
 Building this blog, I saw necessary create a small search engine for serve a quick way for locate old and specific posts. For do that, I used react as JavaScript library for create a search component and the feature of Astro of create smart JSON endpoints for use as REST API.

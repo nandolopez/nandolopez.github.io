@@ -13,7 +13,6 @@ tags:
   - Windows
   - winget
 ---
-
 # How to update all your windows installed applications with only a command
 
 The command:

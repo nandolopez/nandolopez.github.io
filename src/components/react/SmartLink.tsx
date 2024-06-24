@@ -10,7 +10,7 @@ import type { ISocialMedia } from "@/interfaces/ISocialMedia";
 
 const SmartLink = (props: ISocialMedia) => {
   // Text of search input
-  const { link, smartlink, alt, icon } = props;
+  const { link, smartlink, alt, icon, mobilelink } = props;
 
   const onClickLink = () => {
     
@@ -18,11 +18,10 @@ const SmartLink = (props: ISocialMedia) => {
       /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
     const isMobile = navigator.userAgent.search(regex) >=0;
 
-    console.log(isMobile)
     try {
         window.location.href = isMobile ? smartlink :link;
     } catch (error) {
-        window.location.href = link
+        window.location.href = mobilelink ? mobilelink : link
     }finally{
         window.location.href = link        
     }

@@ -4,4 +4,5 @@ export interface ISocialMedia  {
     inFooter: boolean;
     link: string;
     smartlink: string;
+    mobilelink?: string;
   };

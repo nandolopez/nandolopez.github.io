@@ -8,11 +8,10 @@ thumbnail: /svg_topics/HTML.svg
 meta_title: Native HTML autocomplete without Javascript, CSS or additional code
 meta_description: Discover how to create an autocomplete feature using only HTML, without relying on JavaScript. Improve your website's functionality and accessibility with this simple and effective technique. Learn more here
 topic: HTML
-status: published
+status: Published
 tags:
   - HTML
 ---
-
 # Generate an autocomplete with native HTML without Javascript
 
 Recently, for a project be obligated use an autocomplete, the problem was that I found a way that don't affect to performance, due is a big application that will do a heavy load to the browser. Looking for a solution, I found this way that is native in HTML.
