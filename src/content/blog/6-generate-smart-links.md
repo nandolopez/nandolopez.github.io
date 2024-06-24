@@ -2,8 +2,8 @@
 title: ⛓️ Allow open your contacts links in apps instead browser in mobile navigation
 description: Solve the issue of open your contact links in mobile browsing, allow open the hyperlink in native app if is available or open in browser if clients are surfing in a desktop or you don't have the app
 index: true
-pubDate: 2024-06-15
-update_date: 2024-06-15
+pubDate: 2024-06-25
+update_date: 2024-06-25
 thumbnail: /svg_topics/HTML.svg
 meta_title: ⛓️ Allow open your contacts links in apps instead browser in mobile navigation
 meta_description: Solve the issue of open your contact links in mobile browsing, allow open the hyperlink in native app if is available or open in browser if clients are surfing in a desktop or you don't have the app
