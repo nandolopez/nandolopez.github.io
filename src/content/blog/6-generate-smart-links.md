@@ -10,6 +10,10 @@ meta_description: Solve the issue of open your contact links in mobile browsing,
 topic: HTML
 status: draft
 tags:
+	- HTML
+	- JavaScript
+	- Astro
+	- React
 ---
 # Generate Smart links
 
