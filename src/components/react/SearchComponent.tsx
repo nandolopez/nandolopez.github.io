@@ -22,23 +22,25 @@ import CloseIcon from "@/assets/svg/Close.svg";
  */
 
 const SearchComponent = () => {
-  // Text of search input
-  const [InputSearch, setInputSearch] = useState("");
   // Posts list to filter
   const [Posts, setPosts] = useState([]);
+  const [results, setResults] = useState([]);
   // Modal reference for open / close it
   const ModalReference = useRef<HTMLDialogElement>(null);
+  //For set focus on open modal button
+  const InputSearchReference = useRef<HTMLInputElement>(null);
 
   const onClickButtonOpenModal = async () => {
     const response = await fetch("/search.json");
     const data = await response.json();
     setPosts(data);
     ModalReference.current!.open = true;
+    InputSearchReference.current!.focus();
   };
 
   const onClickButtonCloseModal = () => {
     setPosts([]);
-    setInputSearch("");
+    InputSearchReference.current!.value = "";
     ModalReference.current!.removeAttribute("open");
   };
 
@@ -57,50 +59,21 @@ const SearchComponent = () => {
     };
   }, []);
 
-  const onChangeInputSearch = (event: string) => setInputSearch(event);
-
-  const SearchResultVisualizer = () => {
-    const input = InputSearch.toLowerCase();
-    if (input.length > 0) {
-      const results = Posts.filter((element: any) => {
+  const onChangeSearchInput = () => {
+    setResults([]);
+    const input = InputSearchReference.current!.value.toLowerCase();
+    if(input.length > 0){
+      const SearchResults = Posts.filter((element: any) => {
         return (
           element.title.toLowerCase().includes(input) ||
           element.description.toLowerCase().includes(input) ||
-          element.slug.toLowerCase().includes(input)
+          element.slug.toLowerCase().includes(input) ||
+          element.topic.toLowerCase().includes(input)
         );
       });
-      return results.map((post: any) => {
-        return (
-          <article className="border-b-2 border-white pb-4 flex gap-4">
-            <a
-              href={`/blog/post/${post.slug}/`}
-              className="bg-white p-2 rounded-xl"
-            >
-              <img
-                src={
-                  post.thumbnail
-                    ? post.thumbnail
-                    : `/svg_icons/${post.topic}.svg`
-                }
-                alt={post.title}
-                className="w-20 h-20"
-              />
-            </a>
-            <section className="flex flex-col w-full">
-              <div className="flex gap-4 w-full">
-                <a href={`/blog/post/${post.slug}`} className="w-full">
-                  <h2 className="mb-0 w-full">{post.title}</h2>
-                </a>
-              </div>
-              <p>{post.description}</p>
-            </section>
-          </article>
-        );
-      });
+      setResults(SearchResults);
     }
-    return <p>Search input is empty type something for locate a post.</p>;
   };
-
   return (
     <>
       {/* OPEN BUTTON */}
@@ -128,14 +101,44 @@ const SearchComponent = () => {
               placeholder="Search"
               className="bg-transparent border-nonefocus:appearance-none focus:ring-0 focus:ring-offset-0 outline-none p-2 placeholder:text-white/80 text-xl w-full "
               id="search-input"
-              autoFocus
-              value={InputSearch}
-              onChange={($event) => onChangeInputSearch($event.target.value)}
+              ref={InputSearchReference}
+              onChange={onChangeSearchInput}
             />
           </div>
           {/* RESULTS VISUALIZER */}
-          <div className="flex flex-col gap-4 glassmorph h-auto max-h-96 mx-auto overflow-y-auto w-10/12 md:w-6/12 z-50">
-            {SearchResultVisualizer()}
+          <div className="flex flex-col gap-4 glassmorph h-auto md:max-h-96 mx-auto overflow-y-auto w-10/12 md:w-6/12 z-50">
+            {results.length > 0 ? (
+              results.map((post: any) => {
+                return (
+                  <article className="border-b-2 border-white pb-4 flex gap-4">
+                    <a
+                      href={`/blog/post/${post.slug}/`}
+                      className="bg-white p-2 rounded-xl h-24"
+                    >
+                      <img
+                        src={
+                          post.thumbnail
+                            ? post.thumbnail
+                            : `/svg_topics/${post.topic}.svg`
+                        }
+                        alt={post.title}
+                        className="w-20 h-20"
+                      />
+                    </a>
+                    <section className="flex flex-col w-full">
+                      <div className="flex gap-4 w-full">
+                        <a href={`/blog/post/${post.slug}`} className="w-full">
+                          <h2 className="mb-0 w-full">{post.title}</h2>
+                        </a>
+                      </div>
+                      <p>{post.description}</p>
+                    </section>
+                  </article>
+                );
+              })
+            ) : (
+              <p>Search input is empty type something for locate a post.</p>
+            )}
           </div>
         </div>
       </dialog>
