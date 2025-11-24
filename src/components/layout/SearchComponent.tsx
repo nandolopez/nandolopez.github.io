@@ -10,8 +10,15 @@ export const SearchComponent = () => {
         setResults([])
         const input: string = e.target.value || ''
         if (input.length >= 3) {
-            const request = await fetch('/api/search/' + encodeURIComponent(input))
-            setResults(await request.json())
+            const request = await fetch('/api/search.json')
+            const response = await request.json()
+            const filtered = response.filter((element: any) => {
+                return element.title.toLowerCase().includes(input) ||
+                    element.description.toLowerCase().includes(input) ||
+                    element.slug.toLowerCase().includes(input) ||
+                    element.topic.toLowerCase().includes(input)
+            })
+            setResults(filtered)
         }
     }
 
@@ -54,7 +61,7 @@ export const SearchComponent = () => {
                                 <path d="m21 21-4.3-4.3"></path>
                             </g>
                         </svg>
-                        <input type="search" class="grow" placeholder="Search" onInput={($event)=>onInputSearch($event)} />
+                        <input type="search" class="grow" placeholder="Search" onInput={($event) => onInputSearch($event)} />
                     </label>
                     <ul className="list  rounded-box shadow-md max-h-96 overflow-y-scroll">
 

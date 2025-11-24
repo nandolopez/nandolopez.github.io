@@ -19,7 +19,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, pubDate, thumbnail, index } = Astro.props;
 
-const getTitle = (title?: string) => `${title} | ${SITE_NAME}`;
+const getTitle = () => `${title} | ${SITE_NAME}`;
 ---
 
 <html lang="en">
@@ -43,6 +43,8 @@ const getTitle = (title?: string) => `${title} | ${SITE_NAME}`;
       href="svg_social/Logo.svg"
     />
     <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <title>{getTitle()}</title>
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />

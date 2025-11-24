@@ -4,16 +4,12 @@ import Layout from "@/layouts/default.astro";
 ---
 
 <Layout
-    title="🪧 Here you can see my posts"
-    description=""
-    pubDate={new Date()}
-    index={true}
-    thumbnail={"Logo.src"}
+  title="🪧 Here you can see my posts"
+  description=""
+  pubDate={new Date()}
+  index={true}
+  thumbnail={"Logo.src"}
+  tags={[]}
 >
-    <ListContentIsland
-        collection="projects"
-        page="1"
-        pagination={false}
-        basepath="/projects/project"
-    />
+  <ListContentIsland collection="projects" page="1" pagination={false} />
 </Layout>

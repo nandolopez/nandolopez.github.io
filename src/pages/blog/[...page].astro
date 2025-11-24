@@ -4,21 +4,17 @@ import ListTopics from "@/islands/ListTopics.astro";
 import Layout from "@/layouts/default.astro";
 
 const { page } = Astro.params;
-export const getStaticPaths = async() =>[]
+export const getStaticPaths = async () => [];
 ---
 
 <Layout
-    title="🪧 Here you can see my posts"
-    description=""
-    pubDate={new Date()}
-    index={true}
-    thumbnail={"Logo.src"}
-    tags={[]}
+  title="🪧 Here you can see my posts"
+  description=""
+  pubDate={new Date()}
+  index={true}
+  thumbnail={"Logo.src"}
+  tags={[]}
 >
-    <ListTopics />
-    <ListContentIsland
-        collection="blog"
-        page={page || "1"}
-        pagination={true}
-    />
+  <ListTopics />
+  <ListContentIsland collection="blog" page={page || "1"} pagination={true} />
 </Layout>
