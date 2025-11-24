@@ -7,13 +7,15 @@ import Layout from '@/layouts/default.astro'
   pubDate={new Date()}
   index={true}
   thumbnail="/public/svg_social/Logo.svg"
+  tags={[]}
 >
 
 <div
-  class="flex flex-col gap-4 justify-around items-center mb-4 md:flex-row w-full"
+  class="flex flex-col gap-4 justify-around items-center my-8 md:flex-row w-full"
 >
 
-  <article class="flex flex-col gap-8 justify-center my-auto items-center justify-item">
+  <article class="bg-gray-900/20 backdrop-blur rounded-2xl flex flex-col gap-8 justify-center my-auto items-center justify-item p-4">
+    <h1 class="text-4xl font-bold">NOTE: PAGE UNDER RE-CONSTRUCTION</h1>
     <h1 class="text-4xl font-bold">🙋🏻‍♂️ Welcome, I'm Fernando. Nice to meet you 😊</h1>
     <h2 class="text-2xl text-justify p-4">I am passionate about high technology with a special interest in front-end programming and web development. As you can see in this resume, I have worked in a wide variety of IT areas, which has allowed me to have a solid career path and to be familiar with a large number of technologies. I hope this summary meets your needs and you see fit to meet in a formal interview to discuss the details required for the position.</h2>
     <div
@@ -21,19 +23,19 @@ import Layout from '@/layouts/default.astro'
     >
       <a
         href="/projects"
-        class="bg-gradient-to-t from-indigo-600 to-violet-400 hover:from-violet-400 flex font-bold hover:to-indigo-600 hover:-rotate-3 px-4 py-2 text-center rounded-md text-white transition-all"
+        class="btn button"
         >
         Take a look to my projects
       </a>
       <a
         href="/blog"
-        class="bg-gradient-to-t from-indigo-600 to-violet-400 hover:from-violet-400 flex font-bold hover:to-indigo-600 hover:-rotate-3 px-4 py-2 text-center rounded-md text-white transition-all"
+        class="btn button"
         >
         Check my publications
       </a>
       <a
         href="/contact"
-        class="bg-gradient-to-t from-indigo-600 to-violet-400 hover:from-violet-400 flex font-bold hover:to-indigo-600 hover:-rotate-3 px-4 py-2 text-center rounded-md text-white transition-all"
+        class="btn button"
         >
         Let's talk?
       </a>

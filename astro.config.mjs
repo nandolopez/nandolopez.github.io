@@ -11,8 +11,8 @@ import preact from '@astrojs/preact';
 
 // https://astro.build/config
 export default defineConfig({
-  //mksite: 'http://localhost:4321/',
-  site: 'https://nandolopez.github.io/≥',
+  site: 'http://localhost:4321/',
+  //site: 'https://nandolopez.github.io/≥',
   build: {
     format: "file"
   },

@@ -7,12 +7,12 @@ import { Image } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 
 export interface Props {
-    title: string;
-    description?: string;
-    thumbnail: string;
-    pubDate: Date;
-    tags: string[];
-    index: boolean;
+  title: string;
+  description?: string;
+  thumbnail: string;
+  pubDate: Date;
+  tags: string[];
+  index: boolean;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -23,166 +23,153 @@ const getTitle = (title?: string) => `${title} | ${SITE_NAME}`;
 ---
 
 <html lang="en">
-    <head>
-        <!-- Global Metadata -->
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta name="generator" content={Astro.generator} />
-        <!-- 
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
- -->
-        <link rel="sitemap" href="/sitemap-index.xml" />
+  <head>
+    <!-- Global Metadata -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
 
-        <!-- Canonical URL -->
-        <link rel="canonical" href={canonicalURL} />
+    <link rel="apple-touch-icon" sizes="180x180" href="svg_social/Logo.svg" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="svg_social/Logo.svg"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="svg_social/Logo.svg"
+    />
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
-        <!-- Primary Meta Tags -->
-        <title>{getTitle()}</title>
-        <meta name="title" content={getTitle()} />
-        <meta name="description" content={description} />
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
 
-        <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={Astro.url} />
-        <meta property="og:title" content={getTitle(title)} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={thumbnail} />
+    <!-- Primary Meta Tags -->
+    <title>{getTitle()}</title>
+    <meta name="title" content={getTitle()} />
+    <meta name="description" content={description} />
 
-        <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={Astro.url} />
-        <meta property="twitter:title" content={getTitle(title)} />
-        <meta property="twitter:description" content={description} />
-        <meta property="twitter:image" content={thumbnail} />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={getTitle(title)} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={thumbnail} />
 
-        {index ? <meta name="robots" content="noindex, nofollow" /> : ""}
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={getTitle(title)} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={thumbnail} />
 
-        <!-- Fade transition with the default duration -->
-    </head><div transition:animate="fade"></div>
-    <ClientRouter />
+    {index ? <meta name="robots" content="noindex, nofollow" /> : ""}
 
-    <body>
-        <div
-            id="all"
-            class="text-lg grid grid-rows-[auto_1fr_auto] gap-4 m-0 min-h-dvh m-0 relative text-gray-900 w-screen"
-        >
-            <header class="fixed navbar z-40">
-                <div class="navbar-start w-full">
-                    <div class="avatar">
-                        <a href="/" class="md:w-12 w-10 rounded-full">
-                            <img
-                                src="/img/pages/Home.webp"
-                                class="rounded-full"
-                            />
-                        </a>
-                    </div>
-                </div>
-                <div class="navbar-end md:gap-4 gap-2 relative w-full">
-                   
-                <DarkModeButton client:load />
-                    <SearchComponent client:load />
-                    <input
-                        type="checkbox"
-                        class="hidden peer"
-                        id="navbar-open"
-                    />
-                    <label
-                        for="navbar-open"
-                        class="bg-gray-900/60 backdrop-blur flex flex-col flex-wrap items-center justify-center md:hidden p-2 size-14 rounded-2xl"
-                    >
-                        <span class="sr-only">Open main menu</span>
-                        <Image
-                            src="/icons/menu.svg"
-                            alt="Open menu"
-                            width="50"
-                            height="50"
-                            class="w-4"
-                        />
-                    </label>
-                    <ul
-                        class="bg-gray-900/60 backdrop-blur hidden menu md:menu-horizontal md:inline-flex p-2 peer-checked:absolute peer-checked:top-16 peer-checked:inline-flex rounded-2xl"
-                    >
-                        <li>
-                            <a href="/" class="text-white text-lg">
-                                <Image
-                                    src="https://api.iconify.design/uim/house-user.svg?width=64&color=%23fff"
-                                    alt="Home"
-                                    width="64"
-                                    height="64"
-                                    class="w-8"
-                                />
-                                <span>Home</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/blog" class="text-white text-lg">
-                                <Image
-                                    src="https://api.iconify.design/uim/window-section.svg?width=64&color=%23fff"
-                                    alt="Blog"
-                                    width="64"
-                                    height="64"
-                                    class="w-8"
-                                />
-                                <span>Blog</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/projects" class="text-white text-lg">
-                                <Image
-                                    src="https://api.iconify.design/uim/box.svg?width=64&color=%23fff"
-                                    alt="Projects"
-                                    width="64"
-                                    height="64"
-                                    class="w-8"
-                                />
-                                <span>Projects</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/contacts" class="text-white text-lg">
-                                <Image
-                                    src="https://api.iconify.design/uim/telegram-alt.svg?width=64&color=%23fff"
-                                    alt="Contacts"
-                                    width="64"
-                                    height="64"
-                                    class="w-8"
-                                />
-                                <span>Contacts</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </header>
+    <!-- Fade transition with the default duration -->
+  </head><div transition:animate="fade"></div>
+  <ClientRouter />
 
-            <!-- Menu Items -->
-
-            <!--Header navbar -->
-            <main
-                class="flex flex-col items-center justify-center content-center mx-auto gap-4 mt-16 max-w-screen px-4 py-6 xl:w-3/4"
-            >
-                <slot />
-            </main>
-            <footer class="flex justify-around p-4 rounded-t-full">
-                <div class="flex items-center gap-8"></div>
-            </footer>
+  <body>
+    <div
+      id="all"
+      class="text-lg grid grid-rows-[auto_1fr_auto] gap-4 m-0 min-h-dvh m-0 relative text-gray-900 w-screen"
+    >
+      <header class="fixed navbar z-40">
+        <div class="navbar-start w-full">
+          <div class="avatar">
+            <a href="/" class="md:w-12 w-10 rounded-full">
+              <img src="/svg_social/Logo.svg" class="rounded-full" />
+            </a>
+          </div>
         </div>
-    </body>
+        <div class="navbar-end md:gap-4 gap-2 relative w-full">
+          <DarkModeButton client:load />
+          <SearchComponent client:load />
+          <input type="checkbox" class="hidden peer" id="navbar-open" />
+          <label
+            for="navbar-open"
+            class="bg-gray-900/60 backdrop-blur flex flex-col flex-wrap items-center justify-center md:hidden p-2 size-14 rounded-2xl"
+          >
+            <span class="sr-only">Open main menu</span>
+            <Image
+              src="/icons/menu.svg"
+              alt="Open menu"
+              width="50"
+              height="50"
+              class="w-4"
+            />
+          </label>
+          <ul
+            class="bg-gray-900/60 backdrop-blur hidden menu md:menu-horizontal md:inline-flex p-2 peer-checked:absolute peer-checked:top-16 peer-checked:inline-flex rounded-2xl"
+          >
+            <li>
+              <a href="/" class="text-white text-lg">
+                <Image
+                  src="https://api.iconify.design/uim/house-user.svg?width=64&color=%23fff"
+                  alt="Home"
+                  width="64"
+                  height="64"
+                  class="w-8"
+                />
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="/blog" class="text-white text-lg">
+                <Image
+                  src="https://api.iconify.design/uim/window-section.svg?width=64&color=%23fff"
+                  alt="Blog"
+                  width="64"
+                  height="64"
+                  class="w-8"
+                />
+                <span>Blog</span>
+              </a>
+            </li>
+            <li>
+              <a href="/projects" class="text-white text-lg">
+                <Image
+                  src="https://api.iconify.design/uim/box.svg?width=64&color=%23fff"
+                  alt="Projects"
+                  width="64"
+                  height="64"
+                  class="w-8"
+                />
+                <span>Projects</span>
+              </a>
+            </li>
+            <li>
+              <a href="/contacts" class="text-white text-lg">
+                <Image
+                  src="https://api.iconify.design/uim/telegram-alt.svg?width=64&color=%23fff"
+                  alt="Contacts"
+                  width="64"
+                  height="64"
+                  class="w-8"
+                />
+                <span>Contacts</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </header>
+
+      <!-- Menu Items -->
+
+      <!--Header navbar -->
+      <main
+        class="flex flex-col items-center justify-center content-center mx-auto gap-4 mt-16 max-w-screen px-4 py-6 xl:w-3/4"
+      >
+        <slot />
+      </main>
+      <footer class="flex justify-around p-4 rounded-t-full">
+        <div class="flex items-center gap-8"></div>
+      </footer>
+    </div>
+  </body>
 
 
 </html>

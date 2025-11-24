@@ -1,71 +1,17 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-/*
-@plugin "daisyui" {
-  themes: light --default, dark --prefersdark, cupcake;
-}
-@custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
-*/
 @plugin "daisyui";
 @custom-variant dark (&:where(.dark, .dark *));
-
-#all{
-  background: radial-gradient(
-        circle farthest-side at 0% 50%,
-        #282828 23.5%,
-        rgba(255, 170, 0, 0) 0
-      )
-      21px 30px,
-    radial-gradient(
-        circle farthest-side at 0% 50%,
-        #2c3539 24%,
-        rgba(222, 220, 216, 0) 0
-      )
-      19px 30px,
-    linear-gradient(
-        #282828 14%,
-        #f1f1f100 0,
-        rgba(240, 166, 17, 0) 85%,
-        #282828 0
-      )
-      0 0,
-    linear-gradient(
-        150deg,
-        #282828 24%,
-        #2c3539 0,
-        #2c3539 26%,
-        rgba(240, 166, 17, 0) 0,
-        rgba(240, 166, 17, 0) 74%,
-        #2c3539 0,
-        #2c3539 76%,
-        #282828 0
-      )
-      0 0,
-    linear-gradient(
-        30deg,
-        #282828 24%,
-        #2c3539 0,
-        #2c3539 26%,
-        rgba(240, 166, 17, 0) 0,
-        rgba(240, 166, 17, 0) 74%,
-        #2c3539 0,
-        #2c3539 76%,
-        #282828 0
-      )
-      0 0,
-    linear-gradient(90deg, #2c3539 2%, #282828 0, #282828 98%, #2c3539 0%) 0 0
-      #282828;
-  background-size: 40px 60px;
+#all {
+  background-color: #e5e5f7;
+  opacity: 0.8;
+  background-image: radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
+  background-size: 10px 10px;
 }
-.dark #all{
-  --s: 28px; /* control the size */
-
-  --c: #0000, #143470 0.5deg 119.5deg, #0000 120deg;
-  --g1: conic-gradient(from 60deg at 56.25% calc(425% / 6), var(--c));
-  --g2: conic-gradient(from 180deg at 43.75% calc(425% / 6), var(--c));
-  --g3: conic-gradient(from -60deg at 50% calc(175% / 12), var(--c));
-  background: var(--g1), var(--g1) var(--s) calc(1.73 * var(--s)), var(--g2),
-    var(--g2) var(--s) calc(1.73 * var(--s)), var(--g3) var(--s) 0,
-    var(--g3) 0 calc(1.73 * var(--s)) #0f2652;
-  background-size: calc(2 * var(--s)) calc(3.46 * var(--s));
+.dark #all {
+  background-color: #04046b;
+  opacity: 0.8;
+  background-image: radial-gradient(#444cf7 0.5px, #04046b 0.5px);
+  background-size: 10px 10px;
+  color: #FFF
 }

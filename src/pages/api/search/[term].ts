@@ -2,8 +2,7 @@ import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 
 
-export const getStaticPaths = () => []
-
+export const getStaticPaths = () => {}
 
 export const GET: APIRoute = async ({ params }) => {
 
@@ -43,4 +42,5 @@ export const GET: APIRoute = async ({ params }) => {
                 "Content-Type": "application/json",
             },
         });
+
 }
