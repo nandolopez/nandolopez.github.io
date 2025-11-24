@@ -1,0 +1,158 @@
+---
+interface Props {
+  post: any;
+}
+
+const { post } = Astro.props;
+const { Content } = await (post as any).render();
+---
+
+<article
+  class="bg-gray-900/20 backdrop-blur flex flex-col gap-8 p-4 rounded-2xl max-w-screen"
+>
+  <img
+    src={post.data.thumbnail || ""}
+    alt={post.title || ""}
+    loading="lazy"
+    class="w-full h-auto"
+  />
+
+  <div class="card bg-base-200/70 rounded-2xl w-full">
+    <div class="card-body">
+      <h2 class="card-title">Overview</h2>
+      <ul class="menu rounded-box w-full" id="table-of-content"></ul>
+    </div>
+  </div>
+
+  <section class="prose dark:prose-invert">
+    <Content />
+  </section>
+</article>
+
+<script>
+  /**
+   * For add copy in clipboard
+   * */
+  const copyCode = async (text: string) => {
+    const clipboardItemData = { ["text/plain"]: text };
+    const clipboardItem = new ClipboardItem(clipboardItemData);
+    await navigator.clipboard.write([clipboardItem]);
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    /**
+     * generate the Table of contents (TOC)
+     */
+
+    const toc = document.querySelector("#table-of-content");
+
+    if (toc) {
+      const headings = document.querySelectorAll("h2, h3, h4");
+
+      if (headings.length > 0) {
+        const level3 = document.createElement("ul");
+        const level4 = document.createElement("ul");
+
+        for (let i = 1; i < headings.length; i++) {
+          const currentElement = headings[i];
+          const currentElementName = currentElement.nodeName;
+
+          const id = currentElement.getAttribute("id") || "";
+          const text = currentElement.textContent;
+
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+
+          a.setAttribute("href", `#${id}`);
+          a.innerText = text;
+          li.appendChild(a);
+
+          switch (currentElementName) {
+            case "H2":
+              toc.appendChild(li);
+              if (
+                level4.querySelectorAll("li").length > 0 &&
+                level3.lastChild
+              ) {
+                level3.lastChild.appendChild(level4.cloneNode(true));
+                level3.innerHTML = "";
+                level4.innerHTML = "";
+              }
+              if (level3.querySelectorAll("li").length > 0 && toc.lastChild) {
+                toc.lastChild.appendChild(level3.cloneNode(true));
+              }
+              level3.innerHTML = "";
+              break;
+            case "H3":
+              level3.appendChild(li.cloneNode(true));
+              if (level4.querySelectorAll("li").length > 0) {
+                li.appendChild(level4.cloneNode(true));
+              }
+              break;
+
+            default:
+              level4.appendChild(li.cloneNode(true));
+              break;
+          }
+        }
+      }
+    }
+
+    /**
+     * Styling each piece of tag <pre> and inside <code> in the content
+     * */
+    const pres = document.querySelectorAll("pre");
+
+    pres.forEach((pre: HTMLElement) => {
+      /**
+       * Creating a container that will be on top of the "terminal moockup"
+       * This container will have: the title as language name of the code
+       *
+       * Should be like
+       * <div> <-- container flex
+       *     <span> language of code (Javascript, typescript, php..)</span>
+       *     <button>copy button</button>
+       * </div>
+       */
+
+      const container = document.createElement("div");
+      container.setAttribute(
+        "class",
+        "absolute flex justify-between top-0 left-0 w-full",
+      );
+
+      const languageSpan = document.createElement("span");
+      languageSpan.setAttribute(
+        "class",
+        "flex justify pl-26 items-center w-full",
+      );
+
+      const clipboardButton = document.createElement("button");
+      clipboardButton.setAttribute("class", "btn btn-ghost");
+      clipboardButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+        `;
+
+      const code = pre.querySelector("code");
+      if (code) {
+        // Setting to each <pre> terminal mockup
+        pre.setAttribute("class", "mockup-code relative");
+
+        // Settings "terminal title"
+        languageSpan.textContent = pre.getAttribute("data-language");
+
+        // Adding function of add the content of <code> in clipboard
+        clipboardButton.addEventListener("click", () =>
+          copyCode(code?.innerText || ""),
+        );
+
+        // Adding generated elements to DOM
+        container.appendChild(languageSpan);
+        container.appendChild(clipboardButton);
+        if (code?.parentNode !== null) {
+          code.parentNode.insertBefore(container, pre.firstChild);
+        }
+      }
+    });
+  });
+</script>

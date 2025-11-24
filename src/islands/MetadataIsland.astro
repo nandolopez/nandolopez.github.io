@@ -1,0 +1,16 @@
+---
+import {SITE_NAME} from "@/config/default";
+import { ClientRouter } from "astro:transitions";
+
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const { title, description, thumbnail, index } = Astro.props;
+
+const getTitle = (title?: string) =>`${title} | ${SITE_NAME}`
+
+
+
+---
+
+

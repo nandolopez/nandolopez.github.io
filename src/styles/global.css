@@ -1,142 +1,71 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 /*
-  INDIVIDUAL ELEMENTS
- */
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake;
+}
+@custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
+*/
+@plugin "daisyui";
+@custom-variant dark (&:where(.dark, .dark *));
 
-body {
-  font-family: "Open Sans Variable", sans-serif;
+#all{
+  background: radial-gradient(
+        circle farthest-side at 0% 50%,
+        #282828 23.5%,
+        rgba(255, 170, 0, 0) 0
+      )
+      21px 30px,
+    radial-gradient(
+        circle farthest-side at 0% 50%,
+        #2c3539 24%,
+        rgba(222, 220, 216, 0) 0
+      )
+      19px 30px,
+    linear-gradient(
+        #282828 14%,
+        #f1f1f100 0,
+        rgba(240, 166, 17, 0) 85%,
+        #282828 0
+      )
+      0 0,
+    linear-gradient(
+        150deg,
+        #282828 24%,
+        #2c3539 0,
+        #2c3539 26%,
+        rgba(240, 166, 17, 0) 0,
+        rgba(240, 166, 17, 0) 74%,
+        #2c3539 0,
+        #2c3539 76%,
+        #282828 0
+      )
+      0 0,
+    linear-gradient(
+        30deg,
+        #282828 24%,
+        #2c3539 0,
+        #2c3539 26%,
+        rgba(240, 166, 17, 0) 0,
+        rgba(240, 166, 17, 0) 74%,
+        #2c3539 0,
+        #2c3539 76%,
+        #282828 0
+      )
+      0 0,
+    linear-gradient(90deg, #2c3539 2%, #282828 0, #282828 98%, #2c3539 0%) 0 0
+      #282828;
+  background-size: 40px 60px;
 }
+.dark #all{
+  --s: 28px; /* control the size */
 
-a {
-  @apply text-purple-700 font-bold;
+  --c: #0000, #143470 0.5deg 119.5deg, #0000 120deg;
+  --g1: conic-gradient(from 60deg at 56.25% calc(425% / 6), var(--c));
+  --g2: conic-gradient(from 180deg at 43.75% calc(425% / 6), var(--c));
+  --g3: conic-gradient(from -60deg at 50% calc(175% / 12), var(--c));
+  background: var(--g1), var(--g1) var(--s) calc(1.73 * var(--s)), var(--g2),
+    var(--g2) var(--s) calc(1.73 * var(--s)), var(--g3) var(--s) 0,
+    var(--g3) 0 calc(1.73 * var(--s)) #0f2652;
+  background-size: calc(2 * var(--s)) calc(3.46 * var(--s));
 }
-dd {
-  @apply text-lg font-semibold;
-}
-dl {
-  @apply max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700 my-2;
-}
-dt {
-  @apply mb-1 text-gray-500 md:text-lg dark:text-gray-400;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Poppins Variable", sans-serif;
-  @apply mt-8 mb-2 font-bold;
-}
-h1 {
-  @apply text-3xl md:text-4xl;
-}
-h2 {
-  @apply text-3xl;
-}
-h3 {
-  @apply text-2xl;
-}
-h4 {
-  font-family: "Playfair Variable", serif;
-  @apply text-xl;
-}
-
-hr {
-  @apply h-1 my-8 bg-gray-200 max-w-80 border-0 md:max-w-full;
-}
-
-b,
-strong {
-  @apply font-bold;
-}
-
-img {
-  @apply block max-w-80 h-auto box-border;
-}
-
-ol {
-  @apply list-decimal;
-}
-
-ol,
-ul {
-  @apply ml-4 mt-1;
-}
-
-pre {
-  @apply my-4 overflow-x-scroll max-w-80 md:max-w-full;
-}
-
-table {
-  @apply table table-auto w-full overflow-scroll;
-}
-th {
-  @apply bg-slate-700  py-2;
-}
-td {
-  @apply border-y py-2;
-}
-tr {
-  @apply odd:bg-slate-600;
-}
-
-ul {
-  @apply list-disc;
-}
-
-code {
-  @apply rounded-lg p-4;
-}
-pre {
-  @apply rounded-lg p-4;
-}
-pre > code {
-  all: unset;
-}
-blockquote {
-  padding: 0 0 0 20px;
-  margin: 0px;
-  font-size: 1.333em;
-}
-hr {
-  border: none;
-}
-p {
-  @apply mb-2;
-}
-/*CLASSES*/
-
-.glassmorph {
-  @apply bg-white/60 backdrop-blur-sm rounded-xl shadow-lg p-4;
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-dialog {
-  opacity: 0;
-}
-
-dialog[open] {
-  /* Apply animation properties to the open dialog */
-  opacity: 1;
-  animation: fade-in 0.5s ease-in-out;
-}
-
-dialog::backdrop {
-  /* Styles for the backdrop */
-}
-
-dialog[open]::backdrop {
-  /* Apply animation properties to the open backdrop */
-  opacity: 1;
-  animation: fade-in 0.5s ease-in-out;
-}
-
-

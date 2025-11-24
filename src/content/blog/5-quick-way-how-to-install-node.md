@@ -4,7 +4,7 @@ description: "After try a lot of ways for install I always I had a couple of iss
 index: true
 pubDate: 2024-06-23
 update_date: 2024-06-23
-thumbnail: /svg_topics/NodeJS.svg
+thumbnail: https://api.iconify.design/logos/nodejs-icon-alt.svg
 meta_title: "🏃‍♂️Quick guide: how to install Node in your computer (Windows, Linux and Mac)"
 meta_description: "After try a lot of ways for install I always I had a couple of issues, here I explain how I solved using the node package manager: FNM, that allow you manage different installations of node together"
 topic: NodeJS

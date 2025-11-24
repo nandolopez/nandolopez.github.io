@@ -4,7 +4,7 @@ description: The best a quick way to update all your apps with only a command in
 index: true
 pubDate: 2024-06-15
 update_date: 2024-06-15
-thumbnail: /svg_topics/Windows.svg
+thumbnail: https://api.iconify.design/logos/microsoft-windows-icon.svg
 meta_title: Update all your windows applications with only one command
 meta_description: The best a quick way to update all your apps with only a command in Windows 10 and Windows 11 without additional programs
 topic: Windows

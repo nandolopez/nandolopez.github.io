@@ -4,7 +4,7 @@ description: Stop searching for commands in GitHub documentation! In this cheats
 index: true
 pubDate: 2024-06-15
 update_date: 2024-06-15
-thumbnail: /svg_topics/Github.svg
+thumbnail: https://api.iconify.design/logos/github-octocat.svg
 meta_title: 📄My Git commands cheatsheet
 meta_description: Stop searching for commands in GitHub documentation! In this cheatsheet, I will share the commands I use most frequently when working with GitHub.
 topic: Github

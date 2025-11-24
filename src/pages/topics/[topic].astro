@@ -1,0 +1,37 @@
+---
+import { DB_Topics } from "@/db/TopicsDB";
+import ListContentIsland from "@/islands/ListContentIsland.astro";
+import ListTopics from "@/islands/ListTopics.astro";
+import Layout from "@/layouts/default.astro";
+import { getCollection } from "astro:content";
+
+export const getStaticPaths = () => {
+    return DB_Topics.map((topic) => {
+        return {
+            params: {
+                topic: topic.Topic,
+            },
+        };
+    });
+};
+
+const { topic } = Astro.params;
+
+---
+
+<Layout
+    title={topic}
+    description=""
+    pubDate={new Date()}
+    index={true}
+    thumbnail={"Logo.src"}
+>
+    <ListTopics />
+    <ListContentIsland
+        collection="blog"
+        page="1"
+        pagination={false}
+        basepath="/blog/post"
+        topic={topic}
+    />
+</Layout>

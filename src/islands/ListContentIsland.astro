@@ -1,0 +1,146 @@
+---
+import { getCollection } from "astro:content";
+
+type collectionType = "blog" | "projects";
+
+interface Props {
+    page: string;
+    collection: collectionType;
+    pagination: boolean;
+    topic?: string;
+}
+
+
+
+const { page, collection, pagination, topic } = Astro.props;
+
+const entry = collection === 'blog' ? 'post' : 'project';
+
+const IntPage = parseInt(page || "1");
+
+const PrevPage = IntPage - 1;
+const NextPage = IntPage + 1;
+
+const getPosts = async () => {
+    const Collection = (
+        await getCollection(collection, (post) => {
+            const results = post.data.status === "Published";
+            if (topic) {
+                return post.data.topic === topic && results;
+            }
+            return results;
+        })
+    )
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+        .map((post: any) => {
+            const data = post.data;
+            return {
+                title: data.title,
+                description: data.description,
+                slug: post.slug,
+                topic: data.topic,
+                thumbnail: data.thumbnail,
+            };
+        });
+
+    if (pagination) {
+        const start = PrevPage * 12;
+        const end = start + 12;
+        return Collection.slice(start, end);
+    }
+    return Collection;
+};
+
+const Posts = await getPosts();
+---
+
+<section
+    class="relative flex flex-col flex-wrap gap-4 justify-around items-center md:flex-row rounded-2xl max-w-screen"
+>
+    <div
+        class="bg-gray-900/20 backdrop-blur gap-4 grid grid-cols-1 md:grid-cols-3 p-4 rounded-2xl"
+    >
+        {
+            Posts.length > 0 ?
+            Posts.map((e: any) => (
+                <a href={`${collection}/${entry}/${e.slug}`} class=" w-full">
+                    <div class="bg-gray-800 bg-opacity-40 p-6 rounded-2xl h-full">
+                        <figure class="relative h-32 overflow-hidden w-full">
+                            <img
+                                src={e.thumbnail}
+                                alt="content"
+                                width={50}
+                                height={60}
+                                class="rounded-xl h-auto object-cover object-center mb-6 w-full"
+                            />
+                        </figure>
+                        <h3 class="tracking-widest text-indigo-400 text-xs font-medium title-font">
+                            {e.topic}
+                        </h3>
+                        <h2 class="text-lg text-white font-medium title-font mb-4">
+                            {e.title}
+                        </h2>
+                        <p class="leading-relaxed text-base truncate">
+                            {e.description}
+                        </p>
+                    </div>
+                </a>
+            ))
+            :(
+                <p>No entries found in this sections</p>
+            )
+        }
+    </div>
+    {
+        pagination && (
+            <div class="flex justify-around w-full">
+                {PrevPage === 1 && (
+                    <a
+                        href={PrevPage === 1 ? `/${collection}`: `/${collection}/${PrevPage}`}
+                        class="disabled:opacity-60 disabled:cursor-none cursor-pointer  flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                        <svg
+                            class="w-3.5 h-3.5 me-2 rtl:rotate-180"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 14 10"
+                        >
+                            <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 5H1m0 0 4 4M1 5l4-4"
+                            />
+                        </svg>
+                        Previous pages
+                    </a>
+                )}
+                {Posts.length === 12 && (
+                    <a
+                        href={`/${collection}/${NextPage}`}
+                        class="disabled:opacity-60 disabled:cursor-none cursor-pointer  flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >
+                        Next
+                        <svg
+                            class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 14 10"
+                        >
+                            <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9"
+                            />
+                        </svg>
+                    </a>
+                )}
+            </div>
+        )
+    }
+</section>

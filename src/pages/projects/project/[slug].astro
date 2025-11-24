@@ -1,0 +1,36 @@
+---
+import ContentIsland from "@/islands/ContentIsland.astro";
+import Layout from "@/layouts/default.astro";
+import { getCollection } from "astro:content";
+/**
+ * Get all post in english which slug match with URL one
+ */
+
+export async function getStaticPaths() {
+  // Getting all posts in english
+  const Posts = await getCollection("projects");
+  // Finding the post using the Astro documented way
+  return Posts.map((post: any) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+
+const post = Astro.props;
+---
+
+<Layout {...post.data}>
+<div class="flex flex-col gap-8 p-4 w-full">
+  <section class="bg-gray-900/20 backdrop-blur rounded-2xl w-full">
+    <div class="breadcrumbs px-4 w-full">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/projets">Projects</a></li>
+        <li>Project: {post.data.title}</li>
+      </ul>
+    </div>
+  </section>
+  <ContentIsland post={post} />
+
+</div>
+</Layout>

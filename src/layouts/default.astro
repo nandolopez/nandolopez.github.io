@@ -1,138 +1,188 @@
 ---
-import type { CollectionEntry } from "astro:content";
-//import Header from "../components/structure/Header.astro";
-import { ViewTransitions } from "astro:transitions";
-// Import the global.css file here so that it is included on
+import { DarkModeButton } from "@/components/layout/DarkModeButton";
+import { SearchComponent } from "@/components/layout/SearchComponent";
+import { SITE_NAME } from "@/config/default";
+import "@/styles/global.css";
+import { Image } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
 
-import { DB_Menu } from "@/db/DB_Menu";
-import SearchComponent from "@/components/react/SearchComponent";
-import ButtonDarkMode from "@/components/react/ButtonDarkMode";
-import MenuIcon from "@/assets/svg/Menu.svg";
-import NavbarLinkComponent from "@/components/NavbarLinkComponent.astro";
-import "@fontsource/open-sans";
-import "@fontsource-variable/playfair";
-import "@fontsource/open-sans";
-import "../styles/global.css";
-import { DB_SocialMedia } from "@/db/DB_SocialMedia";
-
-/**
- * Load parameters for SEO Stuff
- */
-type Props = CollectionEntry<"blog">["data"];
-
-const { title, description, thumbnail, index } = Astro.props;
+export interface Props {
+    title: string;
+    description?: string;
+    thumbnail: string;
+    pubDate: Date;
+    tags: string[];
+    index: boolean;
+}
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const { title, description, pubDate, thumbnail, index } = Astro.props;
+
+const getTitle = (title?: string) => `${title} | ${SITE_NAME}`;
 ---
 
 <html lang="en">
-  <head>
-    <!-- Global Metadata -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-
-    {index ? <meta name="robots" content="noindex" /> : ""}
-    <!-- Canonical URL -->
-    <link rel="canonical" href={canonicalURL} />
-
-    <!-- Primary Meta Tags -->
-    <title>{title}</title>
-    <meta name="title" content={title} />
-    <meta name="description" content={description} />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta
-      property="og:image"
-      content={new URL(thumbnail ?? "/public/svg_social/Logo.svg", Astro.url)}
-    />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta
-      property="twitter:image"
-      content={new URL(thumbnail ?? "/public/svg_social/Logo.svg", Astro.url)}
-    />
-
-    <ViewTransitions />
-  </head>
-
-  <body
-    class="bg-gradient-to-t from-violet-400 via-pink-500 to-yellow-500 dark:from-violet-900 dark:via-pink-950 dark:to-orange-800 dark:text-white flex flex-col justify-between gap-4 min-h-dvh m-0 max-w-screen relative"
-  >
-    <!--Header navbar -->
-    <header
-      class="bg-white/20 backdrop-blur-sm flex flex-wrap md:flex-nowrap gap-4 justify-between items-center shadow-lg p-4 w-full z-40"
-    >
-      <a href="/">
-        <img
-          src="/svg_social/Logo.svg"
-          alt="Nando López"
-          class="w-12 rounded-lg"
+    <head>
+        <!-- Global Metadata -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="generator" content={Astro.generator} />
+        <!-- 
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
         />
-      </a>
-      <div class="flex gap-4 pl-4">
-        <SearchComponent client:load />
-        <ButtonDarkMode client:load />
-      </div>
-      <!-- Menu Button for Mobile -->
-      <input type="checkbox" class="peer hidden" id="navbar-open" />
-      <label for="navbar-open" class="md:hidden">
-        <span class="sr-only">Open main menu</span>
-        <img src={MenuIcon.src} alt="Open menu" class="w-12" />
-      </label>
-      <!-- Menu Button for Mobile -->
-      <!-- Menu Items -->
-      <div
-        class="duration-1000 flex-col gap-4 hidden md:flex md:flex-row md:items-center md:justify-end md:mt-0 mt-[calc(-100%)] peer-checked:mt-0 peer-checked:flex transition-transform w-full"
-        id="menu"
-      >
-        <nav class="md:flex gap-8">
-          {
-            DB_Menu.map((link) => {
-              return (
-                <NavbarLinkComponent
-                  class="flex items-center gap-2 px-4 py-2 rounded-xl text-lg rotate-0 hover:bg-gradient-to-t hover:from-indigo-600 hover:to-violet-400 hover:-rotate-3 transition-all"
-                  href={link.href}
-                >
-                  <img src={link.src} alt={link.alt} class="md:w-6 w-4" />{" "}
-                  {link.link}
-                </NavbarLinkComponent>
-              );
-            })
-          }
-        </nav>
-      </div>
-    </header>
-    <!-- Menu Items -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+        />
+ -->
+        <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!--Header navbar -->
-    <main class="flex flex-col justify-start md:w-3/4 mx-auto p-4 w-full z-10">
-      <slot />
-    </main>
-    <footer
-      class="bg-gradient-to-t from-indigo-600 to-violet-400 flex justify-around p-4 rounded-t-full w-full"
-    >
-      <div class="flex items-center gap-8">
-        {
-          DB_SocialMedia.filter((link: any) => link.inFooter === true).map(
-            (link: any) => (
-              <a href={link.link} target="_blank" class="text-white">
-                <span class="sr-only">Follow Astro on Mastodon</span>
-                <img src={link.icon} alt={link.alt} class="w-12" />
-              </a>
-            )
-          )
-        }
-      </div>
-    </footer>
-  </body>
+        <!-- Canonical URL -->
+        <link rel="canonical" href={canonicalURL} />
+
+        <!-- Primary Meta Tags -->
+        <title>{getTitle()}</title>
+        <meta name="title" content={getTitle()} />
+        <meta name="description" content={description} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={getTitle(title)} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={thumbnail} />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={getTitle(title)} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={thumbnail} />
+
+        {index ? <meta name="robots" content="noindex, nofollow" /> : ""}
+
+        <!-- Fade transition with the default duration -->
+    </head><div transition:animate="fade"></div>
+    <ClientRouter />
+
+    <body>
+        <div
+            id="all"
+            class="text-lg grid grid-rows-[auto_1fr_auto] gap-4 m-0 min-h-dvh m-0 relative text-gray-900 w-screen"
+        >
+            <header class="fixed navbar z-40">
+                <div class="navbar-start w-full">
+                    <div class="avatar">
+                        <a href="/" class="md:w-12 w-10 rounded-full">
+                            <img
+                                src="/img/pages/Home.webp"
+                                class="rounded-full"
+                            />
+                        </a>
+                    </div>
+                </div>
+                <div class="navbar-end md:gap-4 gap-2 relative w-full">
+                   
+                <DarkModeButton client:load />
+                    <SearchComponent client:load />
+                    <input
+                        type="checkbox"
+                        class="hidden peer"
+                        id="navbar-open"
+                    />
+                    <label
+                        for="navbar-open"
+                        class="bg-gray-900/60 backdrop-blur flex flex-col flex-wrap items-center justify-center md:hidden p-2 size-14 rounded-2xl"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <Image
+                            src="/icons/menu.svg"
+                            alt="Open menu"
+                            width="50"
+                            height="50"
+                            class="w-4"
+                        />
+                    </label>
+                    <ul
+                        class="bg-gray-900/60 backdrop-blur hidden menu md:menu-horizontal md:inline-flex p-2 peer-checked:absolute peer-checked:top-16 peer-checked:inline-flex rounded-2xl"
+                    >
+                        <li>
+                            <a href="/" class="text-white text-lg">
+                                <Image
+                                    src="https://api.iconify.design/uim/house-user.svg?width=64&color=%23fff"
+                                    alt="Home"
+                                    width="64"
+                                    height="64"
+                                    class="w-8"
+                                />
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/blog" class="text-white text-lg">
+                                <Image
+                                    src="https://api.iconify.design/uim/window-section.svg?width=64&color=%23fff"
+                                    alt="Blog"
+                                    width="64"
+                                    height="64"
+                                    class="w-8"
+                                />
+                                <span>Blog</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/projects" class="text-white text-lg">
+                                <Image
+                                    src="https://api.iconify.design/uim/box.svg?width=64&color=%23fff"
+                                    alt="Projects"
+                                    width="64"
+                                    height="64"
+                                    class="w-8"
+                                />
+                                <span>Projects</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/contacts" class="text-white text-lg">
+                                <Image
+                                    src="https://api.iconify.design/uim/telegram-alt.svg?width=64&color=%23fff"
+                                    alt="Contacts"
+                                    width="64"
+                                    height="64"
+                                    class="w-8"
+                                />
+                                <span>Contacts</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+
+            <!-- Menu Items -->
+
+            <!--Header navbar -->
+            <main
+                class="flex flex-col items-center justify-center content-center mx-auto gap-4 mt-16 max-w-screen px-4 py-6 xl:w-3/4"
+            >
+                <slot />
+            </main>
+            <footer class="flex justify-around p-4 rounded-t-full">
+                <div class="flex items-center gap-8"></div>
+            </footer>
+        </div>
+    </body>
+
+
 </html>

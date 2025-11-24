@@ -1,0 +1,79 @@
+---
+import { DB_SocialMedia } from "@/db/SocialMediaDB";
+import Layout from "@/layouts/default.astro";
+
+const SocialMedia = DB_SocialMedia;
+---
+
+<Layout
+    title="🪧 Here you can see my posts"
+    description=""
+    pubDate={new Date()}
+    index={true}
+    thumbnail={"Logo.src"}
+>
+    <section class="bg-gray-900/20 backdrop-blur rounded-2xl w-3/4">
+        <div class="hero">
+            <div class="hero-content text-center">
+                <div class="max-w-md">
+                    <a href="" class="avatar">
+                        <div
+                            class="ring-primary ring-offset-base-100 w-24 rounded-full ring-2 mb-8 ring-offset-2"
+                        >
+                            <img
+                                src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp"
+                            />
+                        </div>
+                    </a>
+                    <h1 class="text-5xl font-bold">Follow Me</h1>
+                </div>
+            </div>
+        </div>
+        <ul class="list rounded-box shadow-md">
+            <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+                Check my social media
+            </li>
+            {
+                SocialMedia.map((item) => {
+                    return (
+                        <li
+                            class="list-row"
+                            class:list={{
+                                "md:hidden": item.Mobile,
+                                "sm:hidden md:grid": !item.Mobile,
+                            }}
+                        >
+                            <div>
+                                <img
+                                    class="size-10 rounded-box"
+                                    src={item.Icon}
+                                    alt={item.Title}
+                                />
+                            </div>
+                            <div>
+                                <div>{item.Title}</div>
+                            </div>
+                            <a href={item.Url} class="btn btn-square btn-ghost">
+                                <svg
+                                    class="size-[1.2em]"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <g
+                                        stroke-linejoin="round"
+                                        stroke-linecap="round"
+                                        stroke-width="2"
+                                        fill="none"
+                                        stroke="currentColor"
+                                    >
+                                        <path d="M6 3L20 12 6 21 6 3z" />
+                                    </g>
+                                </svg>
+                            </a>
+                        </li>
+                    );
+                })
+            }
+        </ul>
+    </section>
+</Layout>

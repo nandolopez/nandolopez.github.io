@@ -2,6 +2,9 @@
 import ListContentIsland from "@/islands/ListContentIsland.astro";
 import ListTopics from "@/islands/ListTopics.astro";
 import Layout from "@/layouts/default.astro";
+
+const { page } = Astro.params;
+export const getStaticPaths = async() =>[]
 ---
 
 <Layout
@@ -15,8 +18,7 @@ import Layout from "@/layouts/default.astro";
     <ListTopics />
     <ListContentIsland
         collection="blog"
-        page="1"
+        page={page || "1"}
         pagination={true}
-        basepath="/blog"
     />
 </Layout>

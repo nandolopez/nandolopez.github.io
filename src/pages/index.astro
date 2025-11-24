@@ -1,9 +1,6 @@
 ---
-import ListTopicsComponent from '@/components/Lists/ListTopicsComponent.astro'
 import Layout from '@/layouts/default.astro'
 ---
-
-
 <Layout
   title="💻 Fernando's Front-end developer portfolio"
   description=""
@@ -13,7 +10,7 @@ import Layout from '@/layouts/default.astro'
 >
 
 <div
-  class="flex flex-col gap-4 glassmorph justify-around items-center mb-4 md:flex-row w-full"
+  class="flex flex-col gap-4 justify-around items-center mb-4 md:flex-row w-full"
 >
 
   <article class="flex flex-col gap-8 justify-center my-auto items-center justify-item">
@@ -50,8 +47,4 @@ import Layout from '@/layouts/default.astro'
     <img src="/img/pages/Home.webp" class="block h-auto rounded-xl" alt="" />
   </article>
 </div>
-<article class="flex flex-col glassmorph mt-4 gap-4 w-full">
-  <h3 class="text-center w-full">Technology knowledge</h3>
-  <ListTopicsComponent />
-</article>
 </Layout>

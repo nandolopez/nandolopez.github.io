@@ -4,7 +4,7 @@ description: If you are tired of find Javascript libraries or do CSS tricks for 
 index: true
 pubDate: 2024-06-22
 update_date: 2024-06-22
-thumbnail: /svg_topics/HTML.svg
+thumbnail: https://api.iconify.design/logos/html-5.svg
 meta_title: Native HTML autocomplete without Javascript, CSS or additional code
 meta_description: Discover how to create an autocomplete feature using only HTML, without relying on JavaScript. Improve your website's functionality and accessibility with this simple and effective technique. Learn more here
 topic: HTML
