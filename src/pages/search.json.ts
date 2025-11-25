@@ -7,14 +7,8 @@ export const GET: APIRoute = async () => {
     )
         .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
         .map((post: any) => {
-            const data = post.data;
-            return {
-                title: data.title,
-                description: data.description,
-                slug: post.slug,
-                topic: data.topic,
-                thumbnail: data.thumbnail,
-            };
+            const { title, description, slug, topic, thumbnail } = post.data;
+            return { title, description, slug, topic, thumbnail };
         });
 
     return new Response(JSON.stringify(Posts), {

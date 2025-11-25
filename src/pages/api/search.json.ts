@@ -7,8 +7,9 @@ export const GET: APIRoute = async () => {
         await getCollection("blog", (post) => post.data.status === "Published"))
         .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
         .map((post: any) => {
-            const {title, description, topic, thumbnail} = post.data;
-            return {title, description, topic, thumbnail};
+            const { slug } = post;
+            const { title, description, topic, thumbnail } = post.data;
+            return { title, description, topic, thumbnail, slug };
         });
 
     return new Response(JSON.stringify(Posts),

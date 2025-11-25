@@ -4,39 +4,49 @@ export const SearchComponent = () => {
 
     const [result, setResults] = useState([])
 
-    const onShowModal = () => (document.getElementById('searchModal') as any).showModal()
+    const [filteredSearch, setFilteredSearch] = useState([])
 
-    const onInputSearch = async (e: any) => {
-        setResults([])
-        const input: string = e.target.value || ''
+
+    const onShowModal = async () => {
+        (document.getElementById('searchModal') as any).showModal()
+        const request = await fetch('/api/search.json')
+        const response = await request.json()
+        setResults(response);
+    }
+
+    const onInputSearch = (e: any) => {
+        const input: string = e.target.value.toLowerCase() || ''
         if (input.length >= 3) {
-            const request = await fetch('/api/search.json')
-            const response = await request.json()
-            const filtered = response.filter((element: any) => {
+            const filtered = result.filter((element: any) => {
                 return element.title.toLowerCase().includes(input) ||
                     element.description.toLowerCase().includes(input) ||
                     element.slug.toLowerCase().includes(input) ||
                     element.topic.toLowerCase().includes(input)
             })
-            setResults(filtered)
+            setFilteredSearch(filtered)
+        } else {
+            setFilteredSearch([])
         }
     }
 
     const showResults = () => {
-        return result.map((e: any) => {
-            return (
-                <li className="list-row hover:bg-gray-300/50">
-                    <a href={e.slug}>
-                        <div><img className="size-10 rounded-box" src={e.image} /></div>
-                        <div>
-                            <div>{e.title}</div>
-                            <div className="text-xs uppercase font-semibold opacity-60">{e.description}</div>
-                        </div>
-                    </a>
-                </li>
+        if (filteredSearch.length > 0) {
+            return filteredSearch.map((e: any) => {
+                return (
+                    <li className="list-row hover:bg-gray-300/50">
+                        <a href={e.slug}>
+                            <div><img className="size-10 rounded-box" src={e.thumbnail} alt="No logo" /></div>
+                            <div>
+                                <div>{e.title}</div>
+                                <div className="text-xs uppercase font-semibold opacity-60">{e.description}</div>
+                            </div>
+                        </a>
+                    </li>
 
-            )
-        })
+                )
+            })
+        }
+        return <></>
     }
 
 
@@ -61,7 +71,7 @@ export const SearchComponent = () => {
                                 <path d="m21 21-4.3-4.3"></path>
                             </g>
                         </svg>
-                        <input type="search" class="grow" placeholder="Search" onInput={($event) => onInputSearch($event)} />
+                        <input type="search" name="q" class="grow" placeholder="Search" onInput={($event) => onInputSearch($event)} />
                     </label>
                     <ul className="list  rounded-box shadow-md max-h-96 overflow-y-scroll">
 
